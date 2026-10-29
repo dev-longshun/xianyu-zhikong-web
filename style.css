@@ -175,6 +175,7 @@ h1, h2, h3 { color: var(--ink); font-weight: 600; margin: 0; }
   border-left: 1.8px solid var(--brand); border-bottom: 1.8px solid var(--brand); transform: rotate(-45deg);
 }
 .buy-contact { text-align: center; }
+.buy:not(:has(.buy-contact)) { grid-template-columns: 1fr; } /* 联系方式关掉时购买卡占满一行 */
 .qr {
   display: block; width: 168px; height: 168px; margin: 0 auto; padding: 8px;
   background: #fff; border: 1px solid var(--line-faint); border-radius: 12px;

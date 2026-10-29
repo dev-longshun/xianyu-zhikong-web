@@ -10,7 +10,12 @@ HOST=shan-hk   # ~/.ssh/config 里的别名，root@103.117.101.244
 DEST=/var/www/xianguanjia-web
 cd "$(dirname "$0")/.."
 
-rsync -rlzi --checksum --delete ${1:-} \
+# 微信开关关着时（tools/contact.sh off）不上传二维码，线上已有的那张也删掉。
+# --delete-excluded 会删掉服务器上所有被排除的文件；网站目录里只有这里同步过去的文件，所以只会删到二维码。
+QR=""
+grep -q 'wechat-qr.webp' index.html || QR="--exclude=/img/wechat-qr.webp --delete-excluded"
+
+rsync -rlzi --checksum --delete ${1:-} $QR \
   --include='/index.html' --include='/style.css' --include='/main.js' \
   --include='/img/' --include='/img/*.webp' \
   --include='/fonts/' --include='/fonts/*.woff2' \

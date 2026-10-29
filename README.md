@@ -15,6 +15,19 @@ python3 -m http.server 4176 --bind 127.0.0.1 --directory .
 
 打开 http://127.0.0.1:4176/
 
+## 作者微信一键开关
+
+购买卡上的二维码和微信号可以随时关掉（比如交给别人推广时），「加微信购买」按钮和标题不受影响：
+
+```bash
+sh tools/contact.sh off      # 去掉二维码和微信号并发布，线上的二维码图片也删掉
+sh tools/contact.sh on       # 放回去并发布
+sh tools/contact.sh status   # 看现在是开还是关
+NO_DEPLOY=1 sh tools/contact.sh on   # 只改本地不发布，先预览
+```
+
+块的内容在 `tools/contact-block.html`，换微信号改它，换二维码替换 `img/wechat-qr.webp`。切换后记得在仓库里提交 `index.html`。
+
 ## 改了文案以后：重新切字体
 
 字体子集只含现有的字，新加的字会退回系统宋体，所以改完文案要重切：
