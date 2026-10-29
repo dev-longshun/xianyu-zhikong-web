@@ -176,8 +176,8 @@ h1, h2, h3 { color: var(--ink); font-weight: 600; margin: 0; }
 }
 .buy-contact { text-align: center; }
 .qr {
-  width: 168px; height: 168px; margin: 0 auto; display: grid; place-items: center;
-  border: 1px dashed var(--line); border-radius: 12px; color: var(--muted); font-size: 14px; line-height: 1.6;
+  display: block; width: 168px; height: 168px; margin: 0 auto; padding: 8px;
+  background: #fff; border: 1px solid var(--line-faint); border-radius: 12px;
 }
 .buy-contact p { margin: 14px 0 0; font-size: 15px; color: var(--muted); }
 .buy-contact p b { margin-left: 8px; color: var(--ink); }
