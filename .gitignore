@@ -1,0 +1,12 @@
+.DS_Store
+node_modules/
+.env
+.env.*
+*.pem
+*.key
+# 字体源文件很大，只提交切好的子集
+*.ttf
+*.otf
+# 截图原图（PNG）留在 design-lab，仓库只放压缩后的 WebP
+*.png
+_tmp/
