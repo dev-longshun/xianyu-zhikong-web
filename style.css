@@ -229,6 +229,8 @@ h1, h2, h3 { color: var(--ink); font-weight: 600; margin: 0; }
   .hero { padding-top: 48px; }
   .hero h1 { font-size: 48px; }
   .lede { font-size: 18px; }
+  .meta { gap: 4px 16px; }
+  .meta i { display: none; } /* 折行后行首会多出一个点，手机上只靠间距分隔 */
   .block > h2 { font-size: 26px; }
   .stage { padding: 10px; border-radius: 12px; }
   .stage-frame { border-radius: 6px; }
