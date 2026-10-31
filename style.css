@@ -74,10 +74,7 @@ h1, h2, h3 { color: var(--ink); font-weight: 600; margin: 0; }
   border: 1px solid color-mix(in srgb, var(--line-faint) 80%, transparent);
 }
 .brand { display: flex; align-items: center; gap: 8px; color: var(--ink); font-weight: 600; font-size: 18px; }
-.brand-mark {
-  width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center;
-  background: var(--brand); color: #fff; font-size: 14px; font-weight: 600; line-height: 1;
-}
+.brand-mark { width: 26px; height: 26px; border-radius: 8px; display: block; flex: none; }
 .nav-links { display: flex; gap: 26px; margin-right: auto; font-size: 16px; }
 .nav-links a { color: var(--ink); }
 .nav-links a:hover { color: var(--brand); }

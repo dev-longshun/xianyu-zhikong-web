@@ -17,7 +17,7 @@ grep -q 'wechat-qr.webp' index.html || QR="--exclude=/img/wechat-qr.webp --delet
 
 rsync -rlzi --checksum --delete ${1:-} $QR \
   --include='/index.html' --include='/style.css' --include='/main.js' \
-  --include='/img/' --include='/img/*.webp' \
+  --include='/img/' --include='/img/*.webp' --include='/img/*.png' \
   --include='/fonts/' --include='/fonts/*.woff2' \
   --exclude='*' \
   ./ "$HOST:$DEST/"

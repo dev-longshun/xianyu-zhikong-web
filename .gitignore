@@ -10,3 +10,6 @@ node_modules/
 # 截图原图（PNG）留在 design-lab，仓库只放压缩后的 WebP
 *.png
 _tmp/
+# 网页图标必须是 PNG，这两张要进仓库
+!img/favicon.png
+!img/apple-touch-icon.png
