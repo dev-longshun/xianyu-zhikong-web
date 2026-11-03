@@ -1,6 +1,6 @@
 # 字体源：https://github.com/google/fonts/raw/main/ofl/notoserifsc/NotoSerifSC%5Bwght%5D.ttf（25MB，OFL 许可，不进仓库）
 # 依赖：pip install fonttools brotli（建议装在临时 venv 里）
-# 用法：python subset_font.py <可变字体> <页面html> <输出目录>
+# 用法：python subset_font.py <可变字体> <页面html或站点目录> <输出目录>
 # 按页面里实际出现的中文和全角标点，切出 400 / 600 两个静态字重的 woff2
 import re, sys
 from pathlib import Path
@@ -9,7 +9,9 @@ from fontTools.varLib.instancer import instantiateVariableFont
 from fontTools import subset
 
 src, page, out = sys.argv[1:]
-text = Path(page).read_text(encoding='utf-8')
+page = Path(page)
+pages = ([page] if page.is_file() else [page / 'index.html', *sorted((page / 'tutorials').rglob('*.html')), *sorted((page / 'changelog').rglob('*.html')), *sorted((page / 'download').rglob('*.html')), *sorted((page / 'pricing').rglob('*.html'))])
+text = '\n'.join(p.read_text(encoding='utf-8') for p in pages)
 chars = set(re.findall(r'[‘-”…⺀-⻿　-〿㐀-䶿一-鿿豈-﫿︰-﹏＀-￯]', text))
 print('字数', len(chars))
 for w in (400, 600):

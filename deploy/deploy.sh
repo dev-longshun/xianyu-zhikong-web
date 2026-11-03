@@ -11,17 +11,31 @@ DEST=/var/www/xianguanjia-web
 cd "$(dirname "$0")/.."
 
 # 微信开关关着时（tools/contact.sh off）不上传二维码，线上已有的那张也删掉。
-# --delete-excluded 会删掉服务器上所有被排除的文件；网站目录里只有这里同步过去的文件，所以只会删到二维码。
-QR=""
-grep -q 'wechat-qr.webp' index.html || QR="--exclude=/img/wechat-qr.webp --delete-excluded"
+# 只排除并删除二维码，避免使用 --delete-excluded 扩大到其他服务器文件。
+DRY_RUN="${1:-}"
+case "$DRY_RUN" in
+  ''|--dry-run) ;;
+  *) echo '用法：sh deploy/deploy.sh [--dry-run]' >&2; exit 2 ;;
+esac
+set --
+if ! grep -q 'wechat-qr.webp' index.html; then
+  set -- --filter='hide /img/wechat-qr.webp' --filter='risk /img/wechat-qr.webp'
+fi
 
-rsync -rlzi --checksum --delete ${1:-} $QR \
+# 先重新生成页面；仅同步公开静态产物，不上传 content/、tools/ 或本地文件。
+python3 tools/build_pages.py
+rsync -rlzi --checksum --delete ${DRY_RUN:-} "$@" \
   --include='/index.html' --include='/style.css' --include='/main.js' \
-  --include='/img/' --include='/img/*.webp' --include='/img/*.png' \
+  --include='/site.css' --include='/site.js' --include='/robots.txt' --include='/sitemap.xml' \
+  --include='/tutorials/' --include='/tutorials/**/' --include='/tutorials/**/index.html' --include='/tutorials/index.html' \
+  --include='/changelog/' --include='/changelog/index.html' \
+  --include='/download/' --include='/download/index.html' \
+  --include='/pricing/' --include='/pricing/index.html' \
+  --include='/img/' --include='/img/**/' --include='/img/**/*.webp' --include='/img/*.webp' --include='/img/*.png' \
   --include='/fonts/' --include='/fonts/*.woff2' \
   --exclude='*' \
   ./ "$HOST:$DEST/"
 
-[ "${1:-}" = "--dry-run" ] && exit 0
+[ "$DRY_RUN" = "--dry-run" ] && exit 0
 echo "已发布到 $HOST:$DEST"
 curl -s --noproxy '*' -o /dev/null -w '线上首页：HTTP %{http_code}\n' https://xianyu.dongeai.com/ || true
