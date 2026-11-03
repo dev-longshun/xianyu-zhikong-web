@@ -1,5 +1,5 @@
 #!/bin/sh
-# 一键开关购买卡上的作者微信（二维码 + 微信号），改完直接发布到线上。
+# 一键开关购买卡上的作者微信（二维码 + 微信号），改完提交 index.html 并发布到线上。
 # 「加微信购买」按钮和标题不受影响，只动二维码和微信号这一块。
 # 用法：sh tools/contact.sh on      放上二维码和微信号并发布
 #       sh tools/contact.sh off     去掉二维码和微信号并发布（线上的二维码图片也一并删掉）
@@ -44,4 +44,8 @@ PY
 esac
 
 [ "${NO_DEPLOY:-}" = 1 ] && { echo "没有发布（NO_DEPLOY=1）"; exit 0; }
+if ! git diff --quiet -- index.html; then
+  git add index.html
+  git commit -q -m "chore: 购买卡作者微信改为${1}"
+fi
 sh deploy/deploy.sh

@@ -1,0 +1,6 @@
+.git
+_tmp
+content
+tools
+deploy
+*.md

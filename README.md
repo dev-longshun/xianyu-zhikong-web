@@ -8,10 +8,22 @@
 - Windows 图文原稿：`content/tutorials/windows.md`，由飞书 ZIP 导入，11 张截图压缩为 `img/tutorials/windows/*.webp`，激活输入区域已遮盖。改正文后运行生成命令。
 - 版本内容：`content/releases.json` 是新增页面的版本真源，按已发布安装版倒序维护；下载页自动取第一条，不把未发布的源码更新写进公开日志。首页保留原内容，发布新版本时仍需核对其版本说明。
 - 视频教程：清单在 `content/videos.json`（slug、卡片文案、本页目录），每期的图文摘要写在 `content/tutorials/<slug>.html`。`python3 tools/sync_videos.py` 从 `../video/publish/<source>/` 的 B 站投稿回执读 BV 号、时长、章节，把 16:9 封面转成 `img/tutorials/<slug>.webp`；回执写明已公开（`publication=public`）才上官网。部署时会自动先跑一遍。新视频公开后，由 agent 在清单里加一条、写好摘要（依据 `../video/episodes/<期>/script.md` 的旁白和功能口径，不写视频里没讲的功能），再部署；封面、BV 号、时长、章节都从投稿记录直接复用，不用手填。教程页含摘要与章节，不依赖嵌入式播放器。
-- `sitemap.xml` 与 `robots.txt` 随页面生成。部署命令会先生成内容页，再按白名单上传静态文件，不上传内容原稿或工具。
+- `sitemap.xml` 与 `robots.txt` 随页面生成。镜像只按白名单放静态文件（见 `Dockerfile`），不带内容原稿和工具。
 - 截图：`img/`，全部来自闲鱼智控真实界面，买家、商品、店铺已打码
 - 字体：`fonts/` 是思源宋体（Noto Serif SC）子集，只含页面上用到的字
 - 来历：2026-10-28 在 `design-lab/poc/xianguanjia/simple/` 定稿（第 3 版），过程记录在 `design-lab/tasks/xianguanjia-landing.md`
+
+## 发布
+
+公开仓库 [dev-longshun/xianyu-zhikong-web](https://github.com/dev-longshun/xianyu-zhikong-web)，推送 `main` 就自动上线，和 Readex 官网同一套做法：
+
+1. GitHub Actions（`.github/workflows/docker-publish.yml`）先重新生成页面，和提交的不一致就失败（改了 `content/` 或 `tools/` 记得生成后一起提交）；再构建 `ghcr.io/dev-longshun/xianyu-zhikong-web:latest`。
+2. 服务器 shan-hk 的全局 Watchtower 每 60 秒检查一次，有新镜像就重建容器 `xianyu-web`（`/root/xianyu-web/docker-compose.yml`，127.0.0.1:8796）。
+3. 宿主 nginx 管 HTTPS 和域名，反代到容器（`deploy/nginx.conf`）；缓存头在容器里（`docker/nginx.conf`）。
+
+日常用 `sh deploy/deploy.sh`：同步视频、重新生成页面，有没提交的改动就停下；干净的话推送，并等到线上 `/version.txt` 变成本次提交才算发布完成，一般 2～3 分钟。
+
+仓库是公开的：不放 `.env`、密钥、登录态、后台地址和未公开的价格或数据；截图要打码。
 
 ## 本地预览
 
@@ -32,7 +44,7 @@ sh tools/contact.sh status   # 看现在是开还是关
 NO_DEPLOY=1 sh tools/contact.sh on   # 只改本地不发布，先预览
 ```
 
-块的内容在 `tools/contact-block.html`，换微信号改它，换二维码替换 `img/wechat-qr.webp`。切换后记得在仓库里提交 `index.html`。
+块的内容在 `tools/contact-block.html`，换微信号改它，换二维码替换 `img/wechat-qr.webp`。切换后脚本会提交 `index.html` 并发布；`NO_DEPLOY=1` 时只改本地文件，不提交。
 
 ## 改了文案以后：重新切字体
 
