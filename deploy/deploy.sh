@@ -22,7 +22,9 @@ if ! grep -q 'wechat-qr.webp' index.html; then
   set -- --filter='hide /img/wechat-qr.webp' --filter='risk /img/wechat-qr.webp'
 fi
 
-# 先重新生成页面；仅同步公开静态产物，不上传 content/、tools/ 或本地文件。
+# 先从 B 站投稿回执同步已公开的视频（BV 号、章节、封面），再重新生成页面；
+# 仅同步公开静态产物，不上传 content/、tools/ 或本地文件。
+python3 tools/sync_videos.py
 python3 tools/build_pages.py
 rsync -rlzi --checksum --delete ${DRY_RUN:-} "$@" \
   --include='/index.html' --include='/style.css' --include='/main.js' \

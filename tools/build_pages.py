@@ -9,7 +9,9 @@ ROOT = Path(__file__).resolve().parents[1]
 ORIGIN = 'https://xianyu.dongeai.com'
 RELEASES = json.loads((ROOT / 'content/releases.json').read_text())
 LATEST = RELEASES[0]
-VIDEO = 'https://www.bilibili.com/video/BV1U8x46oEmJ/'
+# 视频教程清单：人维护文案，tools/sync_videos.py 从 B 站投稿回执填 auto（BV 号、时长、章节、封面）。
+# 只有填过 auto（B 站已公开）的视频才生成页面。
+VIDEOS = [v for v in json.loads((ROOT / 'content/videos.json').read_text()) if v.get('auto', {}).get('bvid')]
 
 
 def esc(value):
@@ -113,6 +115,31 @@ def article_body(body, toc, after=''):
 <dialog class="image-viewer" id="image-viewer" aria-label="教程截图大图"><button type="button" autofocus>关闭大图 ×</button><figure><img alt=""><figcaption></figcaption></figure></dialog>'''
 
 
+def minutes(seconds):
+    return f'{seconds // 60} 分 {seconds % 60} 秒'
+
+
+def video_card(video):
+    auto = video['auto']
+    return (f'<a class="video-card" href="/tutorials/{video["slug"]}/"><img src="{auto["cover"]}" width="1200" height="675" alt="{esc(video["cover_alt"])}" loading="lazy">'
+            f'<div class="video-copy"><span class="tag">视频教程 · {minutes(auto["duration"])}</span><h3>{esc(video["card_title"])}</h3>'
+            f'<p>{esc(video["card_text"])}</p><span class="card-link">查看教程与 B 站视频 →</span></div></a>')
+
+
+def video_page(video):
+    auto, url = video['auto'], video['auto']['url']
+    chapters = ''.join(f'<li><a href="{url}?t={seconds}" target="_blank" rel="noopener"><span>{stamp}</span>{esc(label)} ↗</a></li>'
+                       for stamp, seconds, label in auto['chapters'])
+    guide = (ROOT / 'content/tutorials' / f'{video["slug"]}.html').read_text().strip()
+    article = f'''<a href="{url}" target="_blank" rel="noopener"><img src="{auto["cover"]}" width="1200" height="675" alt="在 B 站观看{esc(video["title"])}完整演示"></a><div class="actions"><a class="btn" href="{url}" target="_blank" rel="noopener">去 B 站看完整演示 ↗</a></div>
+<p class="page-meta"><span>时长 {minutes(auto["duration"])}</span><span>图文摘要 + 视频章节</span></p>
+{guide}
+<h2 id="chapters">按章节观看</h2><p>点击章节，在 B 站打开对应时间点。</p><ul class="chapter-list">{chapters}</ul>
+<div class="note"><p>{esc(video["note"])}</p></div>'''
+    body = head(video['title'], video['desc'], 'Feature Guide / Video', breadcrumb=True) + article_body(article, video['toc'])
+    return page(f'/tutorials/{video["slug"]}/', video['title'], video['desc'], body, '/tutorials/', True)
+
+
 def build():
     pages = ['/']
     title = '使用教程'
@@ -122,7 +149,7 @@ def build():
 <div class="guide-grid"><a class="guide-card" href="/tutorials/windows/"><span class="tag">Windows · 图文教程</span><h3>安装与激活</h3><p>从浏览器下载到安装向导，再到输入激活码。11 张操作截图，跟着一步步完成。</p><span class="card-link">查看 Windows 教程 →</span></a>
 <a class="guide-card" href="/tutorials/mac/"><span class="tag">Mac · 快速开始</span><h3>安装与首次使用</h3><p>适用于 Apple 芯片 Mac。下载 DMG、拖入应用程序，完成激活后开始使用。</p><span class="card-link">查看 Mac 教程 →</span></a></div></section>
 <section class="content-section" aria-labelledby="feature-guides"><div class="section-heading"><h2 id="feature-guides">跟着视频配置功能</h2><p>看操作过程，也看完成后的实际效果</p></div>
-<a class="video-card" href="/tutorials/auto-delivery/"><img src="/img/tutorials/auto-delivery.webp" width="1200" height="675" alt="自动发货视频教程封面：网盘链接与卡密发货" loading="lazy"><div class="video-copy"><span class="tag">视频教程 · 2 分 44 秒</span><h3>自动发货怎么设置？</h3><p>固定网盘链接、每单不同的卡密分别怎么配？从准备内容，到检查付款后是否发对，一次讲清。</p><span class="card-link">查看教程与 B 站视频 →</span></div></a></section>
+''' + ''.join(map(video_card, VIDEOS)) + '''</section>
 <div class="help-strip"><p>安装或设置时遇到问题？可以联系作者说明具体情况。</p><a href="/#buy">联系作者 →</a></div></div>'''
     pages.append(page('/tutorials/', title, desc, body, '/tutorials/'))
 
@@ -140,22 +167,11 @@ def build():
 <h2 id="install">二、拖入应用程序</h2><ol><li>双击下载的 DMG 文件，打开安装窗口。</li><li>将「闲鱼智控」拖到「应用程序」文件夹。</li><li>在访达的「应用程序」中打开闲鱼智控。首次询问是否打开从互联网下载的 App 时，确认打开。</li></ol>
 <h2 id="activate">三、完成激活</h2><p>可以先打开查看界面。需要登录闲鱼店铺时，点击客户端的「输入激活码」，输入自己的激活码并按提示完成激活。</p><p>输入时核对激活码是否完整，避免多余空格。尚未购买激活码，可<a href="/#buy">联系作者</a>。一份授权可以激活两台电脑。</p>
 <h2 id="running">四、保持客户端运行</h2><p>闲鱼智控在电脑上运行。添加店铺后，需要电脑保持开机联网、软件保持运行，自动回复和自动发货等任务才会工作。需要长时间运行时，可在客户端设置里开启「挂机不休眠」。</p>
-<p>安装完成后，可继续看<a href="/tutorials/auto-delivery/">自动发货教程</a>，了解固定内容和卡密的配置方式。</p>'''
+<p>安装完成后，可继续看<a href="/tutorials/auto-delivery/">自动发货教程</a>和<a href="/tutorials/keyword-reply/">关键词自动回复教程</a>，跟着视频配置功能。</p>'''
     body = head(title, desc, 'Installation / Mac', breadcrumb=True) + article_body(article, [('download','下载安装包'),('install','拖入应用程序'),('activate','完成激活'),('running','保持客户端运行')])
     pages.append(page('/tutorials/mac/', title, desc, body, '/tutorials/', True))
 
-    title = '自动发货怎么设置'
-    desc = '网盘链接、文档和卡密，按交付内容选择设置方式。跟着视频完成配置，再检查实际发货结果。'
-    chapters = [('00:00',0,'付款后自动发货效果'),('00:13',13,'固定内容和动态卡密怎么选'),('00:28',28,'接入店铺与运行条件'),('00:44',44,'准备下载链接和说明'),('01:02',62,'为链接商品设置付款后发货'),('01:18',78,'创建卡种、导入与库存预警'),('01:37',97,'为卡密商品设置付款后发货'),('01:59',119,'检查实际交付与已售记录'),('02:18',138,'常见问题与补货说明')]
-    chapter_html = ''.join(f'<li><a href="{VIDEO}?t={seconds}" target="_blank" rel="noopener"><span>{stamp}</span>{label} ↗</a></li>' for stamp,seconds,label in chapters)
-    article = f'''<a href="{VIDEO}" target="_blank" rel="noopener"><img src="/img/tutorials/auto-delivery.webp" width="1200" height="675" alt="在 B 站观看自动发货完整演示"></a><div class="actions"><a class="btn" href="{VIDEO}" target="_blank" rel="noopener">去 B 站看完整演示 ↗</a></div>
-<p class="page-meta"><span>时长 2 分 44 秒</span><span>图文摘要 + 视频章节</span></p>
-<h2 id="choose">先选对交付方式</h2><ul><li><strong>每位买家收到相同内容：</strong>例如网盘链接、使用说明，在商品的付款后发货设置里填写固定内容。</li><li><strong>每单发送不同内容：</strong>例如兑换码、卡密，先创建卡种并导入库存，再给商品配置对应卡种。</li></ul>
-<h2 id="steps">配置完成后，检查这几件事</h2><ol><li>店铺已登录在线，电脑联网且客户端保持运行。</li><li>给正确的商品设置「买家付款后发货」，核对要发的链接、说明或卡种。</li><li>使用卡密时，确认可用库存足够，并设置库存预警。</li><li>在实际订单中核对买家收到的内容、订单发货状态，以及卡密的已售记录。</li></ol>
-<h2 id="chapters">按章节观看</h2><p>点击章节，在 B 站打开对应时间点。</p><ul class="chapter-list">{chapter_html}</ul>
-<div class="note"><p>视频画面使用本地示例数据，店铺、订单与兑换码均为虚构演示。演示链接与 DEMO 兑换码不可使用。</p></div>'''
-    body = head(title, desc, 'Feature Guide / Video', breadcrumb=True) + article_body(article, [('choose','选择交付方式'),('steps','配置与检查'),('chapters','视频章节')])
-    pages.append(page('/tutorials/auto-delivery/', title, desc, body, '/tutorials/', True))
+    pages += [video_page(video) for video in VIDEOS]
 
     # 价格页：价格与版本规则来源——基础版 19 元 / 月、高级版 29 元 / 月（作者 2026-11-02 定），
     # 账号规则见软件本体 cloud/license-server/README.md「码分两个版本」。没定的价格（季付、年付、升级补差）不写。
