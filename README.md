@@ -21,6 +21,8 @@
 2. 服务器 shan-hk 的全局 Watchtower 每 60 秒检查一次，有新镜像就重建容器 `xianyu-web`（`/root/xianyu-web/docker-compose.yml`，127.0.0.1:8796）。
 3. 宿主 nginx 管 HTTPS 和域名，反代到容器（`deploy/nginx.conf`）；缓存头在容器里（`docker/nginx.conf`）。
 
+回滚：服务器上 `cd /root/xianyu-web`，把 compose 里的镜像改成 `ghcr.io/dev-longshun/xianyu-zhikong-web:sha-<旧提交>` 再 `docker compose up -d`（这时 Watchtower 不会再追 latest，修好后改回）。改容器前的宿主 nginx 配置备份在 `/root/xianyu.dongeai.com.nginx.bak-before-container-20261103`，旧的静态目录 `/var/www/xianguanjia-web` 暂时保留没删。
+
 日常用 `sh deploy/deploy.sh`：同步视频、重新生成页面，有没提交的改动就停下；干净的话推送，并等到线上 `/version.txt` 变成本次提交才算发布完成，一般 2～3 分钟。
 
 仓库是公开的：不放 `.env`、密钥、登录态、后台地址和未公开的价格或数据；截图要打码。
