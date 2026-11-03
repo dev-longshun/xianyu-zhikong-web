@@ -7,7 +7,7 @@
 - 内容生成：`python3 tools/build_pages.py`，只用 Python 标准库。共享导航、页脚与页面模板在此脚本；生成的 HTML 一起纳入版本管理。
 - Windows 图文原稿：`content/tutorials/windows.md`，由飞书 ZIP 导入，11 张截图压缩为 `img/tutorials/windows/*.webp`，激活输入区域已遮盖。改正文后运行生成命令。
 - 版本内容：`content/releases.json` 是新增页面的版本真源，按已发布安装版倒序维护；下载页自动取第一条，不把未发布的源码更新写进公开日志。首页保留原内容，发布新版本时仍需核对其版本说明。
-- 视频教程：清单在 `content/videos.json`（slug、卡片文案、本页目录），每期的图文摘要写在 `content/tutorials/<slug>.html`。`python3 tools/sync_videos.py` 从 `../video/publish/<source>/` 的 B 站投稿回执读 BV 号、时长、章节，把 16:9 封面转成 `img/tutorials/<slug>.webp`；回执写明已公开（`publication=public`）才上官网。部署时会自动先跑一遍。新视频公开后，在清单里加一条、写好摘要，再部署。教程页含摘要与章节，不依赖嵌入式播放器。
+- 视频教程：清单在 `content/videos.json`（slug、卡片文案、本页目录），每期的图文摘要写在 `content/tutorials/<slug>.html`。`python3 tools/sync_videos.py` 从 `../video/publish/<source>/` 的 B 站投稿回执读 BV 号、时长、章节，把 16:9 封面转成 `img/tutorials/<slug>.webp`；回执写明已公开（`publication=public`）才上官网。部署时会自动先跑一遍。新视频公开后，由 agent 在清单里加一条、写好摘要（依据 `../video/episodes/<期>/script.md` 的旁白和功能口径，不写视频里没讲的功能），再部署；封面、BV 号、时长、章节都从投稿记录直接复用，不用手填。教程页含摘要与章节，不依赖嵌入式播放器。
 - `sitemap.xml` 与 `robots.txt` 随页面生成。部署命令会先生成内容页，再按白名单上传静态文件，不上传内容原稿或工具。
 - 截图：`img/`，全部来自闲鱼智控真实界面，买家、商品、店铺已打码
 - 字体：`fonts/` 是思源宋体（Noto Serif SC）子集，只含页面上用到的字
