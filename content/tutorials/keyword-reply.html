@@ -1,6 +1,28 @@
-<h2 id="rule">建一条关键词回复</h2><p>买家消息里出现你定好的关键词，客户端就自动把对应的回复发过去，文字和图片都能发。以应对砍价为例：</p><ol><li>打开「智能回复」里的「回复管理」，点「新增回复」，回复类型选「关键词回复」。</li><li>关键词填「便宜」「少点」「能刀」「优惠」，每填一个按一下回车。</li><li>写好回复内容，确认「是否启用」开着，保存。</li></ol>
-<h2 id="match">匹配方式：包含还是精确</h2><ul><li><strong>包含：</strong>买家的消息里带这个词就回复。</li><li><strong>精确：</strong>买家发的内容和关键词一字不差才回复。</li></ul><p>「在」这类很短的词用包含容易误触发，买家问「在哪下载」也会回复，这类词改用精确。英文关键词不区分大小写。</p>
-<h2 id="content">文字和步骤图一起发</h2><p>一句话说不清的问题，比如兑换步骤，在规则里同时填文字和图片。买家会先收到文字，紧接着收到图片。</p>
-<h2 id="scope">不同商品回不同内容</h2><p>同样问「怎么用」，资料包和月卡的答案不一样。把通用规则复制一份，适用范围改成「指定店铺和商品可用」，勾选对应商品，改好回复后再启用。复制出来的规则默认是停用的。</p><p>指定了商品的规则会排在通用规则前面，先拿来匹配。</p>
-<h2 id="groups">分组与只回一次</h2><ul><li>规则多了可以按商品或活动分组。活动结束后整组停用，组里各条规则自己的开关保持原样，下次直接启用整组。</li><li>「在吗」这类打招呼的规则，可以打开「同一会话只自动回复一次」，避免买家每说一句都回复一遍。</li></ul>
-<h2 id="check">没有自动回复，先查这几项</h2><ol><li>店铺在线，电脑联网，客户端保持运行。</li><li>自动回复的总开关已打开。</li><li>这条规则和它所在的分组都已启用。</li><li>关键词、匹配方式和适用商品设置正确。</li></ol><p>关键词回复只在买家发消息时触发。买家付款后自动发送内容，请看<a href="/tutorials/auto-delivery/">自动发货教程</a>。</p>
+<div class="note"><p>适用版本：1.5.0。以下为本地示例环境的操作截图，店铺、商品、买家、订单和金额均为虚构；示例兑换码不可使用，示例链接无真实下载。</p></div>
+<p>适合反复被问到的发货时间、怎么用、能否优惠等问题。先建立一条规则，再按需要增加图片、限定适用商品和设置回复频次。</p>
+<h2 id="prepare">一、确认店铺在线，打开回复管理</h2>
+<ol><li>在「店铺」确认目标店铺在线，保持电脑联网、客户端运行。</li><li>打开「设置」→「智能回复」，进入回复管理，检查自动回复总开关处于开启状态。</li><li>点击「新增回复」。</li></ol>
+<figure class="guide-image"><a href="/img/tutorials/keyword-reply/01-online.webp" aria-label="放大查看：店铺在线是自动回复的运行前提"><img src="/img/tutorials/keyword-reply/01-online.webp" width="2200" height="1238" loading="lazy" decoding="async" alt="店铺在线是自动回复的运行前提"></a><figcaption>店铺在线是自动回复的运行前提 · 点击图片可放大</figcaption></figure>
+<figure class="guide-image"><a href="/img/tutorials/keyword-reply/02-reply-list.webp" aria-label="放大查看：在智能回复的回复管理中新建规则"><img src="/img/tutorials/keyword-reply/02-reply-list.webp" width="2200" height="1238" loading="lazy" decoding="async" alt="在智能回复的回复管理中新建规则"></a><figcaption>在智能回复的回复管理中新建规则 · 点击图片可放大</figcaption></figure>
+<h2 id="rule">二、创建一条关键词规则</h2>
+<ol><li>填写规则名称，例如「砍价」，回复类型选择「关键词回复」。</li><li>关键词逐个输入，例如「便宜」「少点」「能刀」「优惠」，每填一个按回车确认。</li><li>填写自动回复正文，使用适合自己商品的话术。</li><li>确认「是否启用」打开，点「确定」保存。</li></ol><p><strong>完成检查：</strong>列表里出现新规则，关键词和回复正文正确，规则已启用。</p>
+<figure class="guide-image"><a href="/img/tutorials/keyword-reply/03-rule-form.webp" aria-label="放大查看：关键词按回车确认，写好正文并启用"><img src="/img/tutorials/keyword-reply/03-rule-form.webp" width="1512" height="1500" loading="lazy" decoding="async" alt="关键词按回车确认，写好正文并启用"></a><figcaption>关键词按回车确认，写好正文并启用 · 点击图片可放大</figcaption></figure>
+<figure class="guide-image"><a href="/img/tutorials/keyword-reply/11-enabled.webp" aria-label="放大查看：填写完内容后，滚动到下方确认启用并保存"><img src="/img/tutorials/keyword-reply/11-enabled.webp" width="1512" height="1500" loading="lazy" decoding="async" alt="填写完内容后，滚动到下方确认启用并保存"></a><figcaption>填写完内容后，滚动到下方确认启用并保存 · 点击图片可放大</figcaption></figure>
+<h2 id="match">三、选择包含匹配或精确匹配</h2>
+<ol><li>编辑规则，找到「匹配方式」。</li><li>选「包含」时，买家消息带有关键词即可触发，例如「老板能便宜点吗」包含「便宜」。</li><li>选「精确」时，整条消息必须与关键词一致。对「在」这样的短词，优先考虑精确，减少「在哪下载」等误触发。</li><li>按实际需求选择后保存。</li></ol>
+<figure class="guide-image"><a href="/img/tutorials/keyword-reply/04-contains.webp" aria-label="放大查看：包含匹配：消息带有关键词即可触发"><img src="/img/tutorials/keyword-reply/04-contains.webp" width="1512" height="1500" loading="lazy" decoding="async" alt="包含匹配：消息带有关键词即可触发"></a><figcaption>包含匹配：消息带有关键词即可触发 · 点击图片可放大</figcaption></figure>
+<figure class="guide-image"><a href="/img/tutorials/keyword-reply/05-exact.webp" aria-label="放大查看：精确匹配：整条消息与关键词一致"><img src="/img/tutorials/keyword-reply/05-exact.webp" width="1512" height="1500" loading="lazy" decoding="async" alt="精确匹配：整条消息与关键词一致"></a><figcaption>精确匹配：整条消息与关键词一致 · 点击图片可放大</figcaption></figure>
+<h2 id="content">四、文字和步骤图一起回复</h2>
+<ol><li>编辑需要讲操作步骤的规则。</li><li>保留文字说明，在同一条规则的图片区上传清晰的步骤图。</li><li>核对文字、图片与适用商品一致，保存。</li></ol><p><strong>完成检查：</strong>买家触发规则后，先收到文字，再收到图片。</p>
+<figure class="guide-image"><a href="/img/tutorials/keyword-reply/06-image-reply.webp" aria-label="放大查看：规则可以同时包含文字和步骤图"><img src="/img/tutorials/keyword-reply/06-image-reply.webp" width="1512" height="1500" loading="lazy" decoding="async" alt="规则可以同时包含文字和步骤图"></a><figcaption>规则可以同时包含文字和步骤图 · 点击图片可放大</figcaption></figure>
+<h2 id="scope">五、给不同商品设置不同答案</h2>
+<ol><li>在规则列表复制一条相似规则，再编辑副本。</li><li>适用范围改为「指定店铺和商品可用」，选中对应店铺，再选择「指定商品可用」。</li><li>点「选择商品」，勾选商品，确认。</li><li>修改规则名称与回复正文，移除不适用的旧图片；复制的规则默认停用，核对后再启用并保存。</li></ol><p><strong>完成检查：</strong>列表适用范围指向正确店铺和商品，买家在对应商品下提问时收到该商品的答案。</p>
+<figure class="guide-image"><a href="/img/tutorials/keyword-reply/07-product-picker.webp" aria-label="放大查看：勾选规则适用的目标商品"><img src="/img/tutorials/keyword-reply/07-product-picker.webp" width="1512" height="838" loading="lazy" decoding="async" alt="勾选规则适用的目标商品"></a><figcaption>勾选规则适用的目标商品 · 点击图片可放大</figcaption></figure>
+<figure class="guide-image"><a href="/img/tutorials/keyword-reply/08-product-scope.webp" aria-label="放大查看：核对店铺和商品范围，再修改对应答案"><img src="/img/tutorials/keyword-reply/08-product-scope.webp" width="1512" height="1500" loading="lazy" decoding="async" alt="核对店铺和商品范围，再修改对应答案"></a><figcaption>核对店铺和商品范围，再修改对应答案 · 点击图片可放大</figcaption></figure>
+<h2 id="groups">六、整理分组，避免重复打招呼</h2>
+<ol><li>在智能回复列表点「新增分组」，输入容易辨认的名称，例如商品名或活动名，确认创建。</li><li>勾选需要整理的规则，点「移动到分组」，选择目标分组并确认。</li><li>活动结束后选中活动组，点「停用组」并确认，规则内容和各条规则自身开关保留。</li><li>编辑「在吗」等问候规则，需要时打开「同一会话只自动回复一次」，保存。</li></ol><p>分组用来整理规则，不改变匹配顺序。规则和所在分组都需要启用，才会生效。</p>
+<figure class="guide-image"><a href="/img/tutorials/keyword-reply/09-once.webp" aria-label="放大查看：问候类规则可设置同一会话只回复一次"><img src="/img/tutorials/keyword-reply/09-once.webp" width="1512" height="1500" loading="lazy" decoding="async" alt="问候类规则可设置同一会话只回复一次"></a><figcaption>问候类规则可设置同一会话只回复一次 · 点击图片可放大</figcaption></figure>
+<figure class="guide-image"><a href="/img/tutorials/keyword-reply/12-groups.webp" aria-label="放大查看：按活动分组整理规则，需要时整组停用"><img src="/img/tutorials/keyword-reply/12-groups.webp" width="2200" height="1238" loading="lazy" decoding="async" alt="按活动分组整理规则，需要时整组停用"></a><figcaption>按活动分组整理规则，需要时整组停用 · 点击图片可放大</figcaption></figure>
+<h2 id="verify">七、用提问检查触发结果</h2>
+<ol><li>让买家在对应商品会话中发送一条能命中关键词的消息。</li><li>核对回复正文；配置了图片的，再核对图片是否发出。</li><li>未回复时，检查总开关、规则开关、分组状态、匹配方式与适用范围；还要确认是否已经触发「只回复一次」。</li></ol><p>关键词规则由买家消息触发。付款后的交付需要在商品的付款后发货设置中配置。</p>
+<figure class="guide-image"><a href="/img/tutorials/keyword-reply/10-reply-result.webp" aria-label="放大查看：示例提问命中关键词后，发送对应回复"><img src="/img/tutorials/keyword-reply/10-reply-result.webp" width="632" height="152" loading="lazy" decoding="async" alt="示例提问命中关键词后，发送对应回复"></a><figcaption>示例提问命中关键词后，发送对应回复 · 点击图片可放大</figcaption></figure>

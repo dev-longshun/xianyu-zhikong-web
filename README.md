@@ -8,6 +8,8 @@
 - Windows 图文原稿：`content/tutorials/windows.md`，由飞书 ZIP 导入，11 张截图压缩为 `img/tutorials/windows/*.webp`，激活输入区域已遮盖。改正文后运行生成命令。
 - 版本内容：`content/releases.json` 是新增页面的版本真源，按已发布安装版倒序维护；下载页自动取第一条，不把未发布的源码更新写进公开日志。首页保留原内容，发布新版本时仍需核对其版本说明。
 - 视频教程：清单在 `content/videos.json`（slug、卡片文案、本页目录），每期的图文摘要写在 `content/tutorials/<slug>.html`。`python3 tools/sync_videos.py` 从 `../video/publish/<source>/` 的 B 站投稿回执读 BV 号、时长、章节，把 16:9 封面转成 `img/tutorials/<slug>.webp`；回执写明已公开（`publication=public`）才上官网。部署时会自动先跑一遍。新视频公开后，由 agent 在清单里加一条、写好摘要（依据 `../video/episodes/<期>/script.md` 的旁白和功能口径，不写视频里没讲的功能），再部署；封面、BV 号、时长、章节都从投稿记录直接复用，不用手填。教程页含摘要与章节，不依赖嵌入式播放器。
+- 完整图文教程（2026-11-08，从视频第 8 期开始）：`content/guides.json` 管理独立步骤教程，正文仍在 `content/tutorials/<slug>.html`，关键操作截图在 `img/tutorials/<slug>/`。视频脚本的同一操作节点保存干净截图和真实控件坐标，由视频工程 `edit/guide.py --episode episodes/<期> --web ../web` 导出标号截图和正文。教程按前提、操作、完成检查组织，可独立生成和阅读；视频公开后让 `content/videos.json` 使用相同 slug，同一页自动补视频入口。图文与视频不相互阻塞，本地完成后等用户指令再上线。
+- 第 2–7 期已补齐完整图文：自动发货、关键词回复、提醒收货、求小红花、多店铺与对账、卡密单独发送。沿用原教程地址，保留对应 B 站视频与章节；第 1 期是功能总览，不拆成操作步骤。补截图在视频工程运行 `bash demo-env/backfill-guides.sh <期目录名>...`，再在这里生成页面和字体子集。完整记录见 `../video/episodes/图文补齐记录.md`。
 - `sitemap.xml` 与 `robots.txt` 随页面生成。镜像只按白名单放静态文件（见 `Dockerfile`），不带内容原稿和工具。
 - 截图：`img/`，全部来自闲鱼智控真实界面，买家、商品、店铺已打码
 - 字体：`fonts/` 是思源宋体（Noto Serif SC）子集，只含页面上用到的字

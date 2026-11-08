@@ -12,6 +12,9 @@ LATEST = RELEASES[0]
 # 视频教程清单：人维护文案，tools/sync_videos.py 从 B 站投稿回执填 auto（BV 号、时长、章节、封面）。
 # 只有填过 auto（B 站已公开）的视频才生成页面。
 VIDEOS = [v for v in json.loads((ROOT / 'content/videos.json').read_text()) if v.get('auto', {}).get('bvid')]
+# 图文教程独立生成；对应视频公开后，可在同一个 slug 的页面补视频入口。
+GUIDES_PATH = ROOT / 'content/guides.json'
+GUIDES = json.loads(GUIDES_PATH.read_text()) if GUIDES_PATH.exists() else []
 
 
 def esc(value):
@@ -112,7 +115,7 @@ def markdown_windows():
 def article_body(body, toc, after=''):
     sidebar = '<aside class="doc-toc" aria-label="本页目录"><p>本页内容</p>' + ''.join(f'<a href="#{key}">{title}</a>' for key, title in toc) + '<a href="/tutorials/">← 全部教程</a></aside>'
     return '<div class="wrap doc-layout">' + sidebar + '<article class="doc-body">' + body + after + '''<div class="article-next"><a href="/tutorials/">← 返回教程中心</a><a href="/download/">下载客户端 →</a></div></article></div>
-<dialog class="image-viewer" id="image-viewer" aria-label="教程截图大图"><button type="button" autofocus>关闭大图 ×</button><figure><img alt=""><figcaption></figcaption></figure></dialog>'''
+<dialog class="image-viewer" id="image-viewer" aria-label="教程截图大图"><button class="image-viewer-close" type="button" autofocus aria-label="关闭大图" title="关闭大图"><span aria-hidden="true">×</span></button><figure><img alt=""><figcaption></figcaption></figure></dialog>'''
 
 
 def minutes(seconds):
@@ -140,6 +143,28 @@ def video_page(video):
     return page(f'/tutorials/{video["slug"]}/', video['title'], video['desc'], body, '/tutorials/', True)
 
 
+def guide_card(guide):
+    return (f'<a class="guide-card" href="/tutorials/{guide["slug"]}/"><span class="tag">图文教程 · {guide["image_count"]} 张操作截图</span>'
+            f'<h3>{esc(guide["title"])}</h3><p>{esc(guide["card_text"])}</p><span class="card-link">按步骤配置 →</span></a>')
+
+
+def guide_page(guide):
+    article = (ROOT / 'content/tutorials' / f'{guide["slug"]}.html').read_text()
+    toc = list(guide['toc'])
+    video = next((v for v in VIDEOS if v['slug'] == guide['slug']), None)
+    if video:
+        auto = video['auto']
+        toc.append(('video', '观看操作视频'))
+        chapters = ''.join(f'<li><a href="{esc(auto["url"])}?t={seconds}" target="_blank" rel="noopener"><span>{stamp}</span>{esc(label)} ↗</a></li>'
+                           for stamp, seconds, label in auto['chapters'])
+        article += (f'<h2 id="video">观看操作视频</h2><p>需要看连续操作过程，可以打开对应的视频演示。</p>'
+                    f'<div class="actions"><a class="btn" href="{esc(auto["url"])}" target="_blank" rel="noopener">去 B 站看完整演示 ↗</a></div>'
+                    f'<p>时长 {minutes(auto["duration"])}。点击章节可打开对应时间点。</p><ul class="chapter-list">{chapters}</ul>')
+    meta = f'<p class="page-meta"><span>图文教程 · {guide["image_count"]} 张操作截图</span><span>适用版本 {esc(guide["version"])}</span><span>更新于 {esc(guide["updated"])}</span></p>'
+    body = head(guide['title'], guide['desc'], 'Step-by-step Guide', meta, True) + article_body(article, toc)
+    return page(f'/tutorials/{guide["slug"]}/', guide['title'], guide['desc'], body, '/tutorials/', True)
+
+
 def build():
     pages = ['/']
     title = '使用教程'
@@ -148,6 +173,7 @@ def build():
 <section class="content-section" aria-labelledby="getting-started"><div class="section-heading"><h2 id="getting-started">先从安装开始</h2><p>第一次使用，先完成下载、安装与激活</p></div>
 <div class="guide-grid"><a class="guide-card" href="/tutorials/windows/"><span class="tag">Windows · 图文教程</span><h3>安装与激活</h3><p>从浏览器下载到安装向导，再到输入激活码。11 张操作截图，跟着一步步完成。</p><span class="card-link">查看 Windows 教程 →</span></a>
 <a class="guide-card" href="/tutorials/mac/"><span class="tag">Mac · 快速开始</span><h3>安装与首次使用</h3><p>适用于 Apple 芯片 Mac。下载 DMG、拖入应用程序，完成激活后开始使用。</p><span class="card-link">查看 Mac 教程 →</span></a></div></section>
+''' + ('<section class="content-section" aria-labelledby="step-guides"><div class="section-heading"><h2 id="step-guides">跟着图文一步步配置</h2><p>按步骤操作，关键设置截图随时放大查看</p></div><div class="guide-grid">' + ''.join(map(guide_card, GUIDES)) + '</div></section>' if GUIDES else '') + '''
 <section class="content-section" aria-labelledby="feature-guides"><div class="section-heading"><h2 id="feature-guides">跟着视频配置功能</h2><p>看操作过程，也看完成后的实际效果</p></div>
 ''' + ''.join(map(video_card, VIDEOS)) + '''</section>
 <div class="help-strip"><p>安装或设置时遇到问题？可以联系作者说明具体情况。</p><a href="/#buy">联系作者 →</a></div></div>'''
@@ -171,7 +197,9 @@ def build():
     body = head(title, desc, 'Installation / Mac', breadcrumb=True) + article_body(article, [('download','下载安装包'),('install','拖入应用程序'),('activate','完成激活'),('running','保持客户端运行')])
     pages.append(page('/tutorials/mac/', title, desc, body, '/tutorials/', True))
 
-    pages += [video_page(video) for video in VIDEOS]
+    pages += [guide_page(guide) for guide in GUIDES]
+    guide_slugs = {guide['slug'] for guide in GUIDES}
+    pages += [video_page(video) for video in VIDEOS if video['slug'] not in guide_slugs]
 
     # 价格页：价格与版本规则来源——基础版 19 元 / 月、高级版 29 元 / 月（作者 2026-11-02 定），
     # 账号规则见软件本体 cloud/license-server/README.md「码分两个版本」。没定的价格（季付、年付、升级补差）不写。
