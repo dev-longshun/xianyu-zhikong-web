@@ -5,7 +5,7 @@ COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
 WORKDIR /usr/share/nginx/html
 RUN rm -f index.html 50x.html
 # 只放页面要用的文件；content/、tools/、deploy/ 等原稿和工具不进镜像
-COPY index.html style.css main.js site.css site.js robots.txt sitemap.xml ./
+COPY index.html index.md llms.txt style.css main.js site.css site.js robots.txt sitemap.xml ./
 COPY tutorials ./tutorials
 COPY changelog ./changelog
 COPY download ./download

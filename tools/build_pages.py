@@ -4,6 +4,11 @@ import html
 import json
 import re
 import struct
+import sys
+
+sys.dont_write_bytecode = True  # 别在 tools/ 里留 __pycache__
+
+import seo
 
 ROOT = Path(__file__).resolve().parents[1]
 ORIGIN = 'https://xianyu.dongeai.com'
@@ -15,6 +20,27 @@ VIDEOS = [v for v in json.loads((ROOT / 'content/videos.json').read_text()) if v
 # 图文教程独立生成；对应视频公开后，可在同一个 slug 的页面补视频入口。
 GUIDES_PATH = ROOT / 'content/guides.json'
 GUIDES = json.loads(GUIDES_PATH.read_text()) if GUIDES_PATH.exists() else []
+# 生成过的页面：(网址, 标题, 描述, 栏目)，给 llms.txt 和 sitemap 用
+PAGES = []
+LASTMOD = {}
+
+# 价格页与结构化数据共用。价格与版本规则来源——基础版 19 元 / 月、高级版 29 元 / 月（作者 2026-11-02 定），
+# 账号规则见软件本体 cloud/license-server/README.md「码分两个版本」。没定的价格（季付、年付、升级补差）不写。
+PLANS = [
+    ('基础版', '19', '一台电脑管一个店铺', '', [
+        '每台电脑登录 1 个闲鱼账号，两台电脑一共 2 个',
+        '换账号先退出当前账号，再扫码登录新账号',
+        '一份授权激活两台电脑，Mac 和 Windows 都能用',
+        '全部功能：自动发货、自动回复、提醒收货、自动评价、经营数据']),
+    ('高级版', '29', '一台电脑管多个店铺', '多店铺选这个', [
+        '每台电脑登录的闲鱼账号数量不限',
+        '多个店铺在同一个客户端里，顶栏一点就切换',
+        '一份授权激活两台电脑，Mac 和 Windows 都能用',
+        '全部功能：自动发货、自动回复、提醒收货、自动评价、经营数据']),
+]
+FEATURES = ['付款后自动发货：卡密、网盘链接、文字，支持多规格和接口实时取卡', '关键词自动回复，图文一起发，买家语音自动转文字',
+            '发货后自动提醒买家确认收货，有售后的单自动跳过', '确认收货后自动好评，自动求小红花',
+            '一个客户端登录多个闲鱼店铺，消息集中处理', '经营数据与逐笔对账、导出', '掉线自动续登，掉线和久未回复邮件提醒']
 
 
 def esc(value):
@@ -35,30 +61,41 @@ def nav(active):
 def footer():
     return '''<footer class="foot"><div class="wrap foot-in">
 <div class="site-footer-links"><a href="/">产品介绍</a><a href="/pricing/">价格</a><a href="/tutorials/">使用教程</a><a href="/changelog/">更新日志</a><a href="/download/">下载客户端</a><a href="/#buy">联系作者</a></div>
-<p><b>闲鱼智控</b>　闲鱼卖家的电脑客户端</p><p class="small">本软件为第三方卖家工具，与闲鱼官方无关</p></div></footer>'''
+<p><b>闲鱼智控</b>　闲鱼卖家的电脑客户端</p><p class="small">© 2026 闲鱼智控　·　本软件为第三方卖家工具，与闲鱼官方无关</p></div></footer>'''
 
 
-def page(url, title, desc, body, active, article=False):
-    schemas = []
+def page(url, title, desc, body, active, article=False, seo_title=None, modified=None, section='', extra=()):
+    full_title = seo_title or title
+    full_title += '' if '闲鱼智控' in full_title else ' · 闲鱼智控'
+    schemas = [{'@context': 'https://schema.org', **seo.organization(ORIGIN)}, *extra]
     if article:
         schemas.append({'@context': 'https://schema.org', '@type': 'TechArticle', 'headline': title,
                         'description': desc, 'inLanguage': 'zh-CN', 'url': ORIGIN + url,
-                        'publisher': {'@type': 'Organization', 'name': '闲鱼智控'}})
+                        'author': seo.organization(ORIGIN), 'publisher': seo.organization(ORIGIN),
+                        'about': {'@id': ORIGIN + '/#app'}, **({'dateModified': modified} if modified else {})})
         schemas.append({'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': [
             {'@type': 'ListItem', 'position': 1, 'name': '首页', 'item': ORIGIN + '/'},
             {'@type': 'ListItem', 'position': 2, 'name': '使用教程', 'item': ORIGIN + '/tutorials/'},
             {'@type': 'ListItem', 'position': 3, 'name': title, 'item': ORIGIN + url}]})
-    schema = ''.join('<script type="application/ld+json">' + json.dumps(s, ensure_ascii=False).replace('<', '\\u003c') + '</script>' for s in schemas)
+    faqs = seo.faqs_in(body)
+    if faqs:
+        schemas.append(seo.faq_schema(faqs))
+    schema = seo.ld(schemas)
     output = f'''<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{esc(title)} · 闲鱼智控</title><meta name="description" content="{esc(desc)}">
-<link rel="canonical" href="{ORIGIN}{url}"><meta property="og:type" content="{'article' if article else 'website'}"><meta property="og:title" content="{esc(title)} · 闲鱼智控"><meta property="og:description" content="{esc(desc)}"><meta property="og:url" content="{ORIGIN}{url}"><meta property="og:image" content="{ORIGIN}/img/t-msg.webp">
+<title>{esc(full_title)}</title><meta name="description" content="{esc(desc)}"><meta name="author" content="闲鱼智控">
+<link rel="canonical" href="{ORIGIN}{url}"><meta property="og:type" content="{'article' if article else 'website'}"><meta property="og:site_name" content="闲鱼智控"><meta property="og:title" content="{esc(full_title)}"><meta property="og:description" content="{esc(desc)}"><meta property="og:url" content="{ORIGIN}{url}"><meta property="og:image" content="{ORIGIN}/img/t-msg.webp">
+<link rel="alternate" type="text/markdown" href="{url}index.md">{f'<meta property="article:modified_time" content="{modified}">' if modified else ''}
 <link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/site.css"><link rel="icon" type="image/png" href="/img/favicon.png"><link rel="apple-touch-icon" href="/img/apple-touch-icon.png">{schema}</head>
 <body>{nav(active)}<main id="content">{body}</main>{footer()}<script src="/site.js" defer></script></body></html>
 '''
     destination = ROOT / url.lstrip('/') / 'index.html'
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_text(output)
+    destination.with_name('index.md').write_text(seo.markdown_page(output, ORIGIN, url))
+    PAGES.append((url, seo_title or title, desc, section))
+    if modified:
+        LASTMOD[url] = modified
     return url
 
 
@@ -140,7 +177,8 @@ def video_page(video):
 <h2 id="chapters">按章节观看</h2><p>点击章节，在 B 站打开对应时间点。</p><ul class="chapter-list">{chapters}</ul>
 <div class="note"><p>{esc(video["note"])}</p></div>'''
     body = head(video['title'], video['desc'], 'Feature Guide / Video', breadcrumb=True) + article_body(article, video['toc'])
-    return page(f'/tutorials/{video["slug"]}/', video['title'], video['desc'], body, '/tutorials/', True)
+    return page(f'/tutorials/{video["slug"]}/', video['title'], video['desc'], body, '/tutorials/', True,
+                seo_title=video.get('seo_title'), section='功能教程')
 
 
 def guide_card(guide):
@@ -162,7 +200,8 @@ def guide_page(guide):
                     f'<p>时长 {minutes(auto["duration"])}。点击章节可打开对应时间点。</p><ul class="chapter-list">{chapters}</ul>')
     meta = f'<p class="page-meta"><span>图文教程 · {guide["image_count"]} 张操作截图</span><span>适用版本 {esc(guide["version"])}</span><span>更新于 {esc(guide["updated"])}</span></p>'
     body = head(guide['title'], guide['desc'], 'Step-by-step Guide', meta, True) + article_body(article, toc)
-    return page(f'/tutorials/{guide["slug"]}/', guide['title'], guide['desc'], body, '/tutorials/', True)
+    return page(f'/tutorials/{guide["slug"]}/', guide['title'], guide['desc'], body, '/tutorials/', True,
+                seo_title=guide.get('seo_title'), modified=guide['updated'], section='功能教程')
 
 
 def build():
@@ -177,14 +216,14 @@ def build():
 <section class="content-section" aria-labelledby="feature-guides"><div class="section-heading"><h2 id="feature-guides">跟着视频配置功能</h2><p>看操作过程，也看完成后的实际效果</p></div>
 ''' + ''.join(map(video_card, VIDEOS)) + '''</section>
 <div class="help-strip"><p>安装或设置时遇到问题？可以联系作者说明具体情况。</p><a href="/#buy">联系作者 →</a></div></div>'''
-    pages.append(page('/tutorials/', title, desc, body, '/tutorials/'))
+    pages.append(page('/tutorials/', title, desc, body, '/tutorials/', seo_title='闲鱼自动发货、自动回复设置教程', section='安装与入门'))
 
     title = 'Windows 安装与激活'
     desc = '从下载安装包、完成安装，到输入激活码。按照图文步骤，完成闲鱼智控的首次安装。'
     article, toc = markdown_windows()
     article = '<div class="note"><p>适用系统：64 位 Windows 10 / 11。截图保留原教程界面，下载区域与按钮位置可能随版本调整，请以当前页面为准。</p></div>' + article
     body = head(title, desc, 'Installation / Windows', '<p class="page-meta"><span>图文教程 · 11 张操作截图</span><span>整理自原飞书安装教程</span></p>', True) + article_body(article, toc)
-    pages.append(page('/tutorials/windows/', title, desc, body, '/tutorials/', True))
+    pages.append(page('/tutorials/windows/', title, desc, body, '/tutorials/', True, seo_title='闲鱼智控 Windows 安装与激活教程', section='安装与入门'))
 
     title = 'Mac 安装与首次使用'
     desc = '下载、拖入应用程序、完成激活。适用于 Apple M 系列芯片的 Mac。'
@@ -195,28 +234,16 @@ def build():
 <h2 id="running">四、保持客户端运行</h2><p>闲鱼智控在电脑上运行。添加店铺后，需要电脑保持开机联网、软件保持运行，自动回复和自动发货等任务才会工作。需要长时间运行时，可在客户端设置里开启「挂机不休眠」。</p>
 <p>安装完成后，可继续看<a href="/tutorials/auto-delivery/">自动发货教程</a>和<a href="/tutorials/keyword-reply/">关键词自动回复教程</a>，跟着视频配置功能。</p>'''
     body = head(title, desc, 'Installation / Mac', breadcrumb=True) + article_body(article, [('download','下载安装包'),('install','拖入应用程序'),('activate','完成激活'),('running','保持客户端运行')])
-    pages.append(page('/tutorials/mac/', title, desc, body, '/tutorials/', True))
+    pages.append(page('/tutorials/mac/', title, desc, body, '/tutorials/', True, seo_title='闲鱼智控 Mac 安装与首次使用', section='安装与入门'))
 
     pages += [guide_page(guide) for guide in GUIDES]
     guide_slugs = {guide['slug'] for guide in GUIDES}
     pages += [video_page(video) for video in VIDEOS if video['slug'] not in guide_slugs]
 
-    # 价格页：价格与版本规则来源——基础版 19 元 / 月、高级版 29 元 / 月（作者 2026-11-02 定），
-    # 账号规则见软件本体 cloud/license-server/README.md「码分两个版本」。没定的价格（季付、年付、升级补差）不写。
+    # 价格与版本规则见文件开头的 PLANS
     title = '价格'
     desc = '两个版本功能完全一样，区别只在每台电脑能登录几个闲鱼账号。基础版 19 元一个月，高级版 29 元一个月。'
-    plans = [
-        ('基础版', '19', '一台电脑管一个店铺', '', [
-            '每台电脑登录 1 个闲鱼账号，两台电脑一共 2 个',
-            '换账号先退出当前账号，再扫码登录新账号',
-            '一份授权激活两台电脑，Mac 和 Windows 都能用',
-            '全部功能：自动发货、自动回复、提醒收货、自动评价、经营数据']),
-        ('高级版', '29', '一台电脑管多个店铺', '多店铺选这个', [
-            '每台电脑登录的闲鱼账号数量不限',
-            '多个店铺在同一个客户端里，顶栏一点就切换',
-            '一份授权激活两台电脑，Mac 和 Windows 都能用',
-            '全部功能：自动发货、自动回复、提醒收货、自动评价、经营数据']),
-    ]
+    plans = PLANS
     plan_html = ''.join(
         f'<section class="plan{" plan-featured" if badge else ""}" aria-labelledby="plan-{n}"><div class="plan-top"><h2 id="plan-{n}">{name}</h2>'
         + (f'<span class="tag">{badge}</span>' if badge else '')
@@ -258,7 +285,8 @@ def build():
 <section class="content-section" aria-labelledby="compare"><div class="section-heading"><h2 id="compare">两个版本对比</h2><p>按月付费，两个版本都最多激活两台电脑</p></div>{table}</section>
 <section class="content-section" aria-labelledby="pricing-faq"><div class="section-heading"><h2 id="pricing-faq">关于版本和购买</h2></div><div class="faq">{faq_html}</div></section>
 <div class="help-strip"><p>拿不准选哪个？加作者微信说说你有几个店铺。</p><a href="/#buy">加微信购买 →</a></div></div>'''
-    pages.append(page('/pricing/', title, desc, body, '/pricing/'))
+    pages.append(page('/pricing/', title, desc, body, '/pricing/', seo_title='闲鱼智控价格：基础版 19 元 / 月，高级版 29 元 / 月', section='产品',
+                      extra=[seo.software(ORIGIN, PLANS, LATEST, FEATURES)]))
 
     title = '更新日志'
     desc = '记录每个安装版的新功能、体验优化与问题修复。看看闲鱼智控最近有哪些变化。'
@@ -268,7 +296,7 @@ def build():
         releases.append(f'<article class="release" id="v{release["version"]}"><div class="release-top"><h2>v{release["version"]}</h2>' + ('<span class="tag">当前版本</span>' if n==0 else '') + f'<time datetime="{release["date"]}">{release["date"]}</time></div><h3>{esc(release["title"])}</h3><p>{esc(release["summary"])}</p>{groups}<div class="note"><p>{esc(release["upgrade"])}</p></div></article>')
     sidebar = '<aside class="doc-toc" aria-label="版本目录"><p>安装版发布记录</p>' + ''.join(f'<a href="#v{r["version"]}">v{r["version"]} · {r["date"]}</a>' for r in RELEASES) + '<a href="/download/">下载当前版本 →</a></aside>'
     body = head(title, desc, 'Product Updates') + '<div class="wrap release-layout">'+sidebar+'<div>'+''.join(releases)+'<p class="page-meta">这里记录已发布的安装版。开发中的改动将在正式发布后列出。</p></div></div>'
-    pages.append(page('/changelog/',title,desc,body,'/changelog/'))
+    pages.append(page('/changelog/',title,desc,body,'/changelog/', seo_title='闲鱼智控更新日志', modified=LATEST['date'], section='产品'))
 
     title = '下载客户端'
     desc = '选好你的电脑系统，下载闲鱼智控。可以先打开看看界面，登录店铺前再完成激活。'
@@ -284,10 +312,42 @@ def build():
 <details><summary>没买激活码，能先下载吗？</summary><p>能。安装后可以先打开查看界面。想登录店铺实际用一用，联系作者可以领 7 天免费试用；正式使用再购买激活码。一份授权可以激活两台电脑。</p></details>
 <details><summary>官网下载慢，有其他下载入口吗？</summary><p>可到<a href="https://github.com/dev-longshun/xianyu-zhikong/releases" target="_blank" rel="noopener">GitHub Releases</a>查看镜像和校验文件。GitHub 镜像已同步当前版本，与官网下载使用同一批安装包，附有 SHA-256 校验文件。</p></details>
 </div></section><div class="help-strip"><p>准备好开始配置功能了？</p><a href="/tutorials/">前往使用教程 →</a></div></div>'''
-    pages.append(page('/download/',title,desc,body,'/download/'))
-    (ROOT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(f'  <url><loc>{ORIGIN}{url}</loc></url>\n' for url in pages) + '</urlset>\n')
-    (ROOT/'robots.txt').write_text(f'User-agent: *\nAllow: /\nSitemap: {ORIGIN}/sitemap.xml\n')
+    pages.append(page('/download/',title,desc,body,'/download/', seo_title='下载闲鱼智控电脑客户端（Mac / Windows）', modified=LATEST['date'], section='产品'))
+    home()
+    (ROOT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(
+        f'  <url><loc>{ORIGIN}{url}</loc>' + (f'<lastmod>{LASTMOD[url]}</lastmod>' if url in LASTMOD else '') + '</url>\n' for url in pages) + '</urlset>\n')
+    (ROOT/'robots.txt').write_text(seo.robots(ORIGIN))
+    sections = [(name, [(u, t, d) for u, t, d, sec in PAGES if sec == name]) for name in ('产品', '安装与入门', '功能教程')]
+    (ROOT/'llms.txt').write_text(seo.llms_txt(ORIGIN, PLANS, LATEST, sections))
     print(f'已生成 {len(pages)-1} 个内容页、sitemap.xml 与 robots.txt。')
+
+
+def home():
+    """首页是手写的：只重写 seo 标记之间的 head 片段（canonical、分享卡片、结构化数据），再生成 index.md。"""
+    path = ROOT / 'index.html'
+    source = path.read_text()
+    faqs = seo.faqs_in(source)
+    schemas = [
+        {'@context': 'https://schema.org', **seo.organization(ORIGIN)},
+        {'@context': 'https://schema.org', '@type': 'WebSite', '@id': ORIGIN + '/#site', 'name': '闲鱼智控', 'url': ORIGIN + '/',
+         'inLanguage': 'zh-CN', 'publisher': {'@id': ORIGIN + '/#org'}},
+        seo.software(ORIGIN, PLANS, LATEST, FEATURES),
+    ] + ([seo.faq_schema(faqs)] if faqs else [])
+    title = re.search(r'<title>(.*?)</title>', source).group(1)
+    desc = re.search(r'<meta name="description" content="([^"]*)"', source).group(1)
+    block = ('<!-- seo:start 由 tools/build_pages.py 生成，改这里会被覆盖 -->\n'
+             f'<link rel="canonical" href="{ORIGIN}/">\n<meta name="author" content="闲鱼智控">\n'
+             '<meta name="keywords" content="闲鱼自动发货,闲鱼自动发货软件,闲鱼自动回复,闲鱼卡密自动发货,闲鱼虚拟商品自动发货,闲鱼多店铺管理">\n'
+             f'<meta property="og:type" content="website"><meta property="og:site_name" content="闲鱼智控"><meta property="og:title" content="{title}">'
+             f'<meta property="og:description" content="{desc}"><meta property="og:url" content="{ORIGIN}/"><meta property="og:image" content="{ORIGIN}/img/t-msg.webp">\n'
+             '<link rel="alternate" type="text/markdown" href="/index.md">\n'
+             + seo.ld(schemas) + '\n<!-- seo:end -->')
+    source, n = re.subn(r'<!-- seo:start.*?<!-- seo:end -->', lambda _m: block, source, flags=re.S)
+    if n != 1:
+        raise SystemExit('index.html 里没找到 <!-- seo:start --> … <!-- seo:end --> 标记')
+    path.write_text(source)
+    (ROOT / 'index.md').write_text(seo.markdown_page(source, ORIGIN, '/'))
+    PAGES.insert(0, ('/', '闲鱼智控首页：功能、价格、下载', desc, '产品'))
 
 
 if __name__ == '__main__':

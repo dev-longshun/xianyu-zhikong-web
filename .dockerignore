@@ -3,4 +3,5 @@ _tmp
 content
 tools
 deploy
-*.md
+# 页面的 index.md 要进镜像（给 AI 助手读），只排除说明文档
+README.md

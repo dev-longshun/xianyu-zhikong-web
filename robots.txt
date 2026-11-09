@@ -1,3 +1,33 @@
+# 全站公开，欢迎搜索引擎和 AI 助手抓取、引用。
+# 每个页面都有 Markdown 版本：在网址后加 index.md，或请求时带 Accept: text/markdown。
+
 User-agent: *
 Allow: /
+
+User-agent: Baiduspider
+User-agent: Sogou web spider
+User-agent: 360Spider
+User-agent: YisouSpider
+User-agent: Bytespider
+User-agent: Googlebot
+User-agent: Bingbot
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Applebot
+User-agent: Applebot-Extended
+User-agent: CCBot
+User-agent: DeepSeekBot
+User-agent: Amazonbot
+User-agent: meta-externalagent
+User-agent: DuckAssistBot
+User-agent: MistralAI-User
+Allow: /
+
 Sitemap: https://xianyu.dongeai.com/sitemap.xml

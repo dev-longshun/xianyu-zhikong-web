@@ -11,6 +11,7 @@
 - 完整图文教程（2026-11-08，从视频第 8 期开始）：`content/guides.json` 管理独立步骤教程，正文仍在 `content/tutorials/<slug>.html`，关键操作截图在 `img/tutorials/<slug>/`。视频脚本的同一操作节点保存干净截图和真实控件坐标，由视频工程 `edit/guide.py --episode episodes/<期> --web ../web` 导出标号截图和正文。教程按前提、操作、完成检查组织，可独立生成和阅读；视频公开后让 `content/videos.json` 使用相同 slug，同一页自动补视频入口。图文与视频不相互阻塞，本地完成后等用户指令再上线。
 - 第 2–7 期已补齐完整图文：自动发货、关键词回复、提醒收货、求小红花、多店铺与对账、卡密单独发送。沿用原教程地址，保留对应 B 站视频与章节；第 1 期是功能总览，不拆成操作步骤。补截图在视频工程运行 `bash demo-env/backfill-guides.sh <期目录名>...`，再在这里生成页面和字体子集。完整记录见 `../video/episodes/图文补齐记录.md`。
 - `sitemap.xml` 与 `robots.txt` 随页面生成。镜像只按白名单放静态文件（见 `Dockerfile`），不带内容原稿和工具。
+- 搜索与 AI 可读性（2026-11-09）：`tools/seo.py` 由生成脚本调用，产出 `robots.txt`（逐个点名放行百度、搜狗、360、必应、谷歌和各家 AI 爬虫）、根目录 `llms.txt`、每页旁边的 `index.md`，以及结构化数据（全站 Organization；首页 WebSite + SoftwareApplication（价格来自 `PLANS`）+ FAQPage；价格页、下载页的问答自动出 FAQPage；教程页 TechArticle 带更新日期）。首页 `index.html` 是手写的，只有 `<!-- seo:start -->` 到 `<!-- seo:end -->` 之间由脚本重写。容器 nginx 让 `/x.md`、`/x/index.html.md` 和带 `Accept: text/markdown` 的请求都拿到 Markdown。教程的网页标题用 `guides.json` 的 `seo_title`（带「闲鱼」和搜索词），页面上的大标题仍用 `title`。检测工具：新趣集「AI 可读性检测」 https://xinquji.com/tools/readiness
 - 截图：`img/`，全部来自闲鱼智控真实界面，买家、商品、店铺已打码
 - 字体：`fonts/` 是思源宋体（Noto Serif SC）子集，只含页面上用到的字
 - 来历：2026-10-28 在 `design-lab/poc/xianguanjia/simple/` 定稿（第 3 版），过程记录在 `design-lab/tasks/xianguanjia-landing.md`
