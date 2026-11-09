@@ -217,6 +217,8 @@ h1, h2, h3 { color: var(--ink); font-weight: 600; margin: 0; }
 
 /* 页脚 */
 .foot { margin-top: var(--gap); padding: 40px 0 48px; border-top: 1px solid var(--line); }
+.foot-badge { margin-top: 16px; }
+.foot-badge img { display: block; }
 .foot-in p { margin: 0; color: var(--text); font-size: 15px; }
 .foot-in b { color: var(--ink); }
 .foot-in .small { margin-top: 6px; color: var(--muted); font-size: 13px; }
