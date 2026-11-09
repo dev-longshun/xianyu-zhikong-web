@@ -144,6 +144,12 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 .compare thead th { color: var(--ink); font: 600 15px/1.5 var(--ui); background: var(--sand); border-bottom: 1px solid var(--line); }
 .compare thead th + th, .compare td { width: 30%; }
 .compare tbody th { color: var(--text); font-weight: 400; }
+/* 文章里的话术表：关键词、匹配方式窄，话术宽；两列表第二列占满 */
+.script-table thead th + th, .script-table td { width: auto; }
+.script-table td:first-of-type { width: 4.5em; white-space: nowrap; }
+.script-table tbody th { width: 30%; }
+.two-col thead th + th, .two-col td { width: auto; }
+.two-col tbody th { width: 9em; }
 .compare td b { color: var(--brand); font-weight: 600; }
 .compare .yes { color: var(--brand); font: 600 17px/1 var(--ui); }
 @media (max-width: 720px) {

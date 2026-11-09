@@ -82,6 +82,30 @@ Guides & Tutorials
 
 按步骤配置 →](https://xianyu.dongeai.com/tutorials/auto-delivery/)
 
+## 闲鱼卖家经验
+
+虚拟商品怎么发、话术怎么写、工具怎么挑
+
+[ 卖家经验
+
+### 闲鱼虚拟商品怎么自动发货
+
+网盘资料、兑换码、月卡年卡分别怎么设，买家半夜付款也能秒发。
+
+阅读全文 →](https://xianyu.dongeai.com/tutorials/virtual-goods-delivery/)[ 卖家经验
+
+### 闲鱼自动回复话术 30 句
+
+打招呼、发货、用法、砍价、售后、收货好评，每句都标了关键词。
+
+阅读全文 →](https://xianyu.dongeai.com/tutorials/auto-reply-scripts/)[ 卖家经验
+
+### 闲鱼自动发货软件怎么选
+
+能发什么、能管几个店、掉线怎么办、怎么收费，六点对照着挑。
+
+阅读全文 →](https://xianyu.dongeai.com/tutorials/choose-delivery-tool/)
+
 ## 跟着视频配置功能
 
 看操作过程，也看完成后的实际效果

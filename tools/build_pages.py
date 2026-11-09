@@ -20,6 +20,10 @@ VIDEOS = [v for v in json.loads((ROOT / 'content/videos.json').read_text()) if v
 # 图文教程独立生成；对应视频公开后，可在同一个 slug 的页面补视频入口。
 GUIDES_PATH = ROOT / 'content/guides.json'
 GUIDES = json.loads(GUIDES_PATH.read_text()) if GUIDES_PATH.exists() else []
+# 卖家经验文章：清单在 content/articles.json，正文 content/articles/<slug>.html。
+# 正文里 [[图片路径 | 图片说明]] 单独一行会展开成带尺寸的截图（说明同时用作 alt 和图注，写清图里是什么）。
+ARTICLES_PATH = ROOT / 'content/articles.json'
+ARTICLES = json.loads(ARTICLES_PATH.read_text()) if ARTICLES_PATH.exists() else []
 # 生成过的页面：(网址, 标题, 描述, 栏目)，给 llms.txt 和 sitemap 用
 PAGES = []
 LASTMOD = {}
@@ -205,6 +209,29 @@ def guide_page(guide):
                 seo_title=guide.get('seo_title'), modified=guide['updated'], section='功能教程')
 
 
+def figures(markup):
+    def figure(match):
+        path, alt = match.group(1).strip(), match.group(2).strip()
+        w, h = image_size(path)
+        return (f'<figure class="guide-image"><a href="{esc(path)}" aria-label="放大查看：{esc(alt)}"><img src="{esc(path)}" width="{w}" height="{h}" '
+                f'loading="lazy" decoding="async" alt="{esc(alt)}"></a><figcaption>{esc(alt)} · 点击图片可放大</figcaption></figure>')
+    return re.sub(r'^\[\[([^|\]]+)\|([^\]]+)\]\]$', figure, markup, flags=re.M)
+
+
+def article_card(item):
+    return (f'<a class="guide-card" href="/tutorials/{item["slug"]}/"><span class="tag">卖家经验</span>'
+            f'<h3>{esc(item["title"])}</h3><p>{esc(item["card_text"])}</p><span class="card-link">阅读全文 →</span></a>')
+
+
+def article_page(item):
+    article = figures((ROOT / 'content/articles' / f'{item["slug"]}.html').read_text())
+    article += '<div class="help-strip"><p>想直接试试？下载闲鱼智控，联系作者可以先领 7 天免费试用。</p><a href="/download/">下载客户端 →</a></div>'
+    meta = f'<p class="page-meta"><span>卖家经验</span><span>适用版本 {esc(item["version"])}</span><span>更新于 {esc(item["updated"])}</span></p>'
+    body = head(item['title'], item['desc'], 'Seller Notes', meta, True) + article_body(article, item['toc'])
+    return page(f'/tutorials/{item["slug"]}/', item['title'], item['desc'], body, '/tutorials/', True,
+                seo_title=item.get('seo_title'), modified=item['updated'], section='卖家经验')
+
+
 def build():
     pages = ['/']
     title = '使用教程'
@@ -214,6 +241,7 @@ def build():
 <div class="guide-grid"><a class="guide-card" href="/tutorials/windows/"><span class="tag">Windows · 图文教程</span><h3>安装与激活</h3><p>从浏览器下载到安装向导，再到输入激活码。11 张操作截图，跟着一步步完成。</p><span class="card-link">查看 Windows 教程 →</span></a>
 <a class="guide-card" href="/tutorials/mac/"><span class="tag">Mac · 快速开始</span><h3>安装与首次使用</h3><p>适用于 Apple 芯片 Mac。下载 DMG、拖入应用程序，完成激活后开始使用。</p><span class="card-link">查看 Mac 教程 →</span></a></div></section>
 ''' + ('<section class="content-section" aria-labelledby="step-guides"><div class="section-heading"><h2 id="step-guides">跟着图文一步步配置</h2><p>按步骤操作，关键设置截图随时放大查看</p></div><div class="guide-grid">' + ''.join(map(guide_card, GUIDES)) + '</div></section>' if GUIDES else '') + '''
+''' + ('<section class="content-section" aria-labelledby="seller-notes"><div class="section-heading"><h2 id="seller-notes">闲鱼卖家经验</h2><p>虚拟商品怎么发、话术怎么写、工具怎么挑</p></div><div class="guide-grid">' + ''.join(map(article_card, ARTICLES)) + '</div></section>' if ARTICLES else '') + '''
 <section class="content-section" aria-labelledby="feature-guides"><div class="section-heading"><h2 id="feature-guides">跟着视频配置功能</h2><p>看操作过程，也看完成后的实际效果</p></div>
 ''' + ''.join(map(video_card, VIDEOS)) + '''</section>
 <div class="help-strip"><p>安装或设置时遇到问题？可以联系作者说明具体情况。</p><a href="/#buy">联系作者 →</a></div></div>'''
@@ -238,6 +266,7 @@ def build():
     pages.append(page('/tutorials/mac/', title, desc, body, '/tutorials/', True, seo_title='闲鱼智控 Mac 安装与首次使用', section='安装与入门'))
 
     pages += [guide_page(guide) for guide in GUIDES]
+    pages += [article_page(item) for item in ARTICLES]
     guide_slugs = {guide['slug'] for guide in GUIDES}
     pages += [video_page(video) for video in VIDEOS if video['slug'] not in guide_slugs]
 
@@ -315,10 +344,15 @@ def build():
 </div></section><div class="help-strip"><p>准备好开始配置功能了？</p><a href="/tutorials/">前往使用教程 →</a></div></div>'''
     pages.append(page('/download/',title,desc,body,'/download/', seo_title='下载闲鱼智控电脑客户端（Mac / Windows）', modified=LATEST['date'], section='产品'))
     home()
-    (ROOT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(
-        f'  <url><loc>{ORIGIN}{url}</loc>' + (f'<lastmod>{LASTMOD[url]}</lastmod>' if url in LASTMOD else '') + '</url>\n' for url in pages) + '</urlset>\n')
+    def images(url):
+        # 正文截图进图片 sitemap，方便被图片搜索收录
+        main = re.search(r'<main[^>]*>(.*)</main>', (ROOT / url.lstrip('/') / 'index.html').read_text(), re.S).group(1)
+        found = dict.fromkeys(re.findall(r'<img[^>]*\ssrc="(/?img/[^"]+)"', main))
+        return ''.join(f'<image:image><image:loc>{ORIGIN}/{src.lstrip("/")}</image:loc></image:image>' for src in found)
+    (ROOT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n' + ''.join(
+        f'  <url><loc>{ORIGIN}{url}</loc>' + (f'<lastmod>{LASTMOD[url]}</lastmod>' if url in LASTMOD else '') + images(url) + '</url>\n' for url in pages) + '</urlset>\n')
     (ROOT/'robots.txt').write_text(seo.robots(ORIGIN))
-    sections = [(name, [(u, t, d) for u, t, d, sec in PAGES if sec == name]) for name in ('产品', '安装与入门', '功能教程')]
+    sections = [(name, [(u, t, d) for u, t, d, sec in PAGES if sec == name]) for name in ('产品', '安装与入门', '功能教程', '卖家经验')]
     (ROOT/'llms.txt').write_text(seo.llms_txt(ORIGIN, PLANS, LATEST, sections))
     print(f'已生成 {len(pages)-1} 个内容页、sitemap.xml 与 robots.txt。')
 

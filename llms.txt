@@ -36,3 +36,9 @@
 - [闲鱼自动提醒买家确认收货怎么设置](https://xianyu.dongeai.com/tutorials/confirm-receipt/): 配置首次提醒时间、间隔和上限，选择系统卡片或文本，保留售后跳过条件，并在台账核对提醒结果。
 - [闲鱼自动回复怎么设置：关键词回复图文教程](https://xianyu.dongeai.com/tutorials/keyword-reply/): 创建关键词规则，选择包含或精确匹配，设置图文与商品范围，最后检查买家提问是否触发正确回复。
 - [闲鱼自动发货怎么设置：卡密、网盘链接、虚拟商品](https://xianyu.dongeai.com/tutorials/auto-delivery/): 分清固定内容和动态卡密，准备模板与库存，为商品开启付款后发货，再核对消息和出库记录。
+
+## 卖家经验
+
+- [闲鱼虚拟商品怎么自动发货？网盘链接、卡密、多规格四种做法](https://xianyu.dongeai.com/tutorials/virtual-goods-delivery/): 在闲鱼卖网盘资料、兑换码这类虚拟商品，买家付款后怎么自动发出去：每单一样的用固定内容，每单不同的用卡密库存，多规格、收货后再送、卡密单独发一条也一并讲清。
+- [闲鱼自动回复话术 30 句：在吗、发货、砍价、售后直接套用](https://xianyu.dongeai.com/tutorials/auto-reply-scripts/): 按买家最常问的场景整理 30 句闲鱼自动回复话术：打招呼、问发货、问怎么用、砍价、售后、提醒收货和求好评，每句标好关键词和匹配方式，改成自己的说法就能用。
+- [闲鱼自动发货软件有哪些、哪个好？选之前先看这 6 点](https://xianyu.dongeai.com/tutorials/choose-delivery-tool/): 闲鱼自动发货软件大致分平台工具、第三方软件和开源脚本三类。按能发什么、多店铺、掉线处理、运行方式、价格和试用六点对照，再说清闲鱼智控适合谁、不适合谁。
