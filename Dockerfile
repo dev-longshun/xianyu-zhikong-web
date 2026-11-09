@@ -6,6 +6,8 @@ WORKDIR /usr/share/nginx/html
 RUN rm -f index.html 50x.html
 # 只放页面要用的文件；content/、tools/、deploy/ 等原稿和工具不进镜像
 COPY index.html index.md llms.txt style.css main.js site.css site.js robots.txt sitemap.xml ./
+# IndexNow 密钥文件（文件名=内容=密钥，按协议公开放在根目录；tools/indexnow.py 用）
+COPY 6ac733c132fb40d98302f7ae90ecf994.txt ./
 COPY tutorials ./tutorials
 COPY changelog ./changelog
 COPY download ./download

@@ -28,6 +28,8 @@
 
 日常用 `sh deploy/deploy.sh`：同步视频、重新生成页面，有没提交的改动就停下；干净的话推送，并等到线上 `/version.txt` 变成本次提交才算发布完成，一般 2～3 分钟。
 
+上线后脚本会顺手跑 `tools/indexnow.py`，把这次改过的页面推给 IndexNow（必应、Yandex 等共用，Google 不收）。密钥文件是根目录的 `6ac733c132fb40d98302f7ae90ecf994.txt`，按协议必须公开，进仓库没问题；推送失败只提示，不影响上线，可以手动 `python3 tools/indexnow.py --all` 全量重推。Google 靠 Search Console 里提交过的 sitemap 自己回来读。
+
 仓库是公开的：不放 `.env`、密钥、登录态、后台地址和未公开的价格或数据；截图要打码。
 
 ## 本地预览
