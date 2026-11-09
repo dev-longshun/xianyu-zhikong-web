@@ -61,7 +61,8 @@ def nav(active):
 def footer():
     return '''<footer class="foot"><div class="wrap foot-in">
 <div class="site-footer-links"><a href="/">产品介绍</a><a href="/pricing/">价格</a><a href="/tutorials/">使用教程</a><a href="/changelog/">更新日志</a><a href="/download/">下载客户端</a><a href="/#buy">联系作者</a></div>
-<p><b>闲鱼智控</b>　闲鱼卖家的电脑客户端</p><p class="small">© 2026 闲鱼智控　·　本软件为第三方卖家工具，与闲鱼官方无关</p></div></footer>'''
+<p><b>闲鱼智控</b>　闲鱼卖家的电脑客户端</p><p class="small">© 2026 闲鱼智控　·　本软件为第三方卖家工具，与闲鱼官方无关</p>
+<p class="small">友情链接：<a href="https://xinquji.com" target="_blank" rel="noopener" title="新趣集：独立开发者产品发布平台">新趣集</a></p></div></footer>'''
 
 
 def page(url, title, desc, body, active, article=False, seo_title=None, modified=None, section='', extra=()):
