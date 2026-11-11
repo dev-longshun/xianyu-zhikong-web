@@ -119,7 +119,7 @@ description: 闲鱼智控是闲鱼卖家用的电脑客户端（Mac / Windows）
 
 **Windows 安装教程**第一次装不熟的，照着这份 [Windows 图文教程](https://xianyu.dongeai.com/tutorials/windows/) 一步步操作即可（Mac 安装很简单，照上面一句话就行）。
 
-当前版本 1.6.0，2026 年 11 月 8 日发布
+当前版本 1.7.0，2026 年 11 月 11 日发布
 
 ## 加微信购买
 
