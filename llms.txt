@@ -28,6 +28,7 @@
 
 ## 功能教程
 
+- [闲鱼两人小刀单，怎么免拼和自动发货](https://xianyu.dongeai.com/tutorials/free-ship-delivery/): 分清自动免拼和订单写操作两个开关，从新店启用5秒免拼，到发卡、平台确认和聊天里开启并免拼。
 - [买家拍多件，怎么自动发货](https://xianyu.dongeai.com/tutorials/multi-quantity-delivery/): 单规格兑换码商品，从拍1件、拍10件到缺货提醒，按真实操作截图核对库存、消息和手动补发。
 - [闲鱼付款发货、收货赠送、好评赠送怎么设置](https://xianyu.dongeai.com/tutorials/delivery-timing/): 准备三份固定内容，为同一个商品分别设置付款、确认收货和买家好评后的自动发送，并检查每个阶段的结果。
 - [闲鱼多规格商品怎么自动发货（月卡、年卡分别发）](https://xianyu.dongeai.com/tutorials/multi-spec-delivery/): 同一个商品有月卡、年卡等规格，按步骤准备库存、绑定卡种与模板，再检查付款后是否发出对应的兑换码。
