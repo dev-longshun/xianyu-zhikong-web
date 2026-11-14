@@ -116,7 +116,37 @@ Guides & Tutorials
 
 看操作过程，也看完成后的实际效果
 
-[![卡密单独再发一条视频教程封面：拖光标选对比长按全选](https://xianyu.dongeai.com/img/tutorials/card-followup.webp)
+[![拍多件自动发货视频教程封面：拍几件发几张](https://xianyu.dongeai.com/img/tutorials/multi-quantity-delivery.webp)
+
+视频教程 · 2 分 12 秒
+
+### 买家一次拍多件怎么发？
+
+拍几件发几张，拍 10 件一次发齐；库存不够整单不发并提醒，补够卡密再手动补发。
+
+查看教程与 B 站视频 →
+
+](https://xianyu.dongeai.com/tutorials/multi-quantity-delivery/)[![三个发货时机视频教程封面：付款、确认收货、好评后分别自动发送](https://xianyu.dongeai.com/img/tutorials/delivery-timing.webp)
+
+视频教程 · 2 分 21 秒
+
+### 付款、收货、好评分别发什么？
+
+付款后发资料，确认收货送指南，好评后再送素材。三个时间点各选一份模板，同一笔订单按顺序发出。
+
+查看教程与 B 站视频 →
+
+](https://xianyu.dongeai.com/tutorials/delivery-timing/)[![多规格自动发货视频教程封面：月卡年卡分别发码](https://xianyu.dongeai.com/img/tutorials/multi-spec-delivery.webp)
+
+视频教程 · 2 分 13 秒
+
+### 一个商品多个规格怎么发？
+
+拍月卡发月卡码，拍年卡发年卡码。每个规格绑定各自的库存，使用说明共用一条模板，没设置的规格不会发。
+
+查看教程与 B 站视频 →
+
+](https://xianyu.dongeai.com/tutorials/multi-spec-delivery/)[![卡密单独再发一条视频教程封面：拖光标选对比长按全选](https://xianyu.dongeai.com/img/tutorials/card-followup.webp)
 
 视频教程 · 1 分 54 秒
 

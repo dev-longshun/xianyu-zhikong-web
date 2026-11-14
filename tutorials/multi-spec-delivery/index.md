@@ -119,6 +119,24 @@ Step-by-step Guide
 
 需要销售的规格都检查完成后，再让这套设置持续运行。
 
+## 观看操作视频
+
+需要看连续操作过程，可以打开对应的视频演示。
+
+[去 B 站看完整演示 ↗](https://www.bilibili.com/video/BV1wWWs6TEMn/)
+
+时长 2 分 13 秒。点击章节可打开对应时间点。
+
+- [ 00:00一个商品，月卡年卡两个规格 ↗](https://www.bilibili.com/video/BV1wWWs6TEMn/?t=0)
+- [ 00:13先准备两组独立库存 ↗](https://www.bilibili.com/video/BV1wWWs6TEMn/?t=13)
+- [ 00:26内容模板：使用说明加卡密 ↗](https://www.bilibili.com/video/BV1wWWs6TEMn/?t=26)
+- [ 00:37销售中 → 多规格设置 ↗](https://www.bilibili.com/video/BV1wWWs6TEMn/?t=37)
+- [ 00:52月卡规格绑定月卡库存 ↗](https://www.bilibili.com/video/BV1wWWs6TEMn/?t=52)
+- [ 01:07年卡规格绑定年卡库存 ↗](https://www.bilibili.com/video/BV1wWWs6TEMn/?t=67)
+- [ 01:24两笔示例订单：按规格发货 ↗](https://www.bilibili.com/video/BV1wWWs6TEMn/?t=84)
+- [ 01:39没设置的规格不会发 ↗](https://www.bilibili.com/video/BV1wWWs6TEMn/?t=99)
+- [ 01:51版本、价格与免费试用 ↗](https://www.bilibili.com/video/BV1wWWs6TEMn/?t=111)
+
 [← 返回教程中心](https://xianyu.dongeai.com/tutorials/)[下载客户端 →](https://xianyu.dongeai.com/download/)
 
 ---

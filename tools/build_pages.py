@@ -202,7 +202,8 @@ def guide_page(guide):
                            for stamp, seconds, label in auto['chapters'])
         article += (f'<h2 id="video">观看操作视频</h2><p>需要看连续操作过程，可以打开对应的视频演示。</p>'
                     f'<div class="actions"><a class="btn" href="{esc(auto["url"])}" target="_blank" rel="noopener">去 B 站看完整演示 ↗</a></div>'
-                    f'<p>时长 {minutes(auto["duration"])}。点击章节可打开对应时间点。</p><ul class="chapter-list">{chapters}</ul>')
+                    + (f'<p>时长 {minutes(auto["duration"])}。点击章节可打开对应时间点。</p><ul class="chapter-list">{chapters}</ul>'
+                       if chapters else f'<p>时长 {minutes(auto["duration"])}。</p>'))
     meta = f'<p class="page-meta"><span>图文教程 · {guide["image_count"]} 张操作截图</span><span>适用版本 {esc(guide["version"])}</span><span>更新于 {esc(guide["updated"])}</span></p>'
     body = head(guide['title'], guide['desc'], 'Step-by-step Guide', meta, True) + article_body(article, toc)
     return page(f'/tutorials/{guide["slug"]}/', guide['title'], guide['desc'], body, '/tutorials/', True,

@@ -134,6 +134,25 @@ Step-by-step Guide
 
 遇到发送失败，按订单与消息记录核对后处理；不要把离线期间没收到的事件当作已经成功发送。
 
+## 观看操作视频
+
+需要看连续操作过程，可以打开对应的视频演示。
+
+[去 B 站看完整演示 ↗](https://www.bilibili.com/video/BV1NkWN6pES9/)
+
+时长 2 分 21 秒。点击章节可打开对应时间点。
+
+- [ 00:00三个时间点，分别发什么 ↗](https://www.bilibili.com/video/BV1NkWN6pES9/?t=0)
+- [ 00:11准备三份内容模板 ↗](https://www.bilibili.com/video/BV1NkWN6pES9/?t=11)
+- [ 00:31付款后发货 → 购买资料 ↗](https://www.bilibili.com/video/BV1NkWN6pES9/?t=31)
+- [ 00:47收货后赠送 → 使用指南 ↗](https://www.bilibili.com/video/BV1NkWN6pES9/?t=47)
+- [ 01:00好评后赠送 → 扩展素材 ↗](https://www.bilibili.com/video/BV1NkWN6pES9/?t=60)
+- [ 01:14演示订单：买家付款 ↗](https://www.bilibili.com/video/BV1NkWN6pES9/?t=74)
+- [ 01:25买家确认收货，再发指南 ↗](https://www.bilibili.com/video/BV1NkWN6pES9/?t=85)
+- [ 01:35买家好评，再发素材 ↗](https://www.bilibili.com/video/BV1NkWN6pES9/?t=95)
+- [ 01:45按需开启，分别核对 ↗](https://www.bilibili.com/video/BV1NkWN6pES9/?t=105)
+- [ 02:00版本、价格与免费试用 ↗](https://www.bilibili.com/video/BV1NkWN6pES9/?t=120)
+
 [← 返回教程中心](https://xianyu.dongeai.com/tutorials/)[下载客户端 →](https://xianyu.dongeai.com/download/)
 
 ---

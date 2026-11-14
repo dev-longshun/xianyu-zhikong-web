@@ -143,6 +143,14 @@ Step-by-step Guide
 - **发送中断：**发到一半断网，不自动重发。按提示核对聊天和已售卡密，再人工处理，避免重复交付。
 - **持续运行：**店铺保持在线，电脑开机联网，软件保持运行。
 
+## 观看操作视频
+
+需要看连续操作过程，可以打开对应的视频演示。
+
+[去 B 站看完整演示 ↗](https://www.bilibili.com/video/BV17TWy6SEmn/)
+
+时长 2 分 12 秒。
+
 [← 返回教程中心](https://xianyu.dongeai.com/tutorials/)[下载客户端 →](https://xianyu.dongeai.com/download/)
 
 ---
