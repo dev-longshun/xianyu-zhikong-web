@@ -28,6 +28,7 @@
 
 ## 功能教程
 
+- [买家拍多件，怎么自动发货](https://xianyu.dongeai.com/tutorials/multi-quantity-delivery/): 单规格兑换码商品，从拍1件、拍10件到缺货提醒，按真实操作截图核对库存、消息和手动补发。
 - [闲鱼付款发货、收货赠送、好评赠送怎么设置](https://xianyu.dongeai.com/tutorials/delivery-timing/): 准备三份固定内容，为同一个商品分别设置付款、确认收货和买家好评后的自动发送，并检查每个阶段的结果。
 - [闲鱼多规格商品怎么自动发货（月卡、年卡分别发）](https://xianyu.dongeai.com/tutorials/multi-spec-delivery/): 同一个商品有月卡、年卡等规格，按步骤准备库存、绑定卡种与模板，再检查付款后是否发出对应的兑换码。
 - [闲鱼自动发货后，卡密或链接怎么单独再发一条](https://xianyu.dongeai.com/tutorials/card-followup/): 编辑正在使用的内容模板，填写单独消息，保存后核对标签和实际发送效果，让买家更方便复制卡密或链接。
