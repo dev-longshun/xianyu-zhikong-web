@@ -64,9 +64,11 @@ def sync():
                          'cover_source_sha256': sha, 'bilibili_title': receipt['title']}
         print(f"{video['slug']}：{receipt['bvid']}，{len(chapters)} 个章节。")
     VIDEOS.write_text(json.dumps(videos, ensure_ascii=False, indent=2) + '\n')
+    skip_file = PUBLISH / 'followup-skip.json'  # 宣传片、游戏视频等本来就不上官网的，记在视频工程的收尾跳过清单里
+    skipped = {k for k, v in json.loads(skip_file.read_text()).items() if '官网' in v} if skip_file.is_file() else set()
     for folder in sorted(PUBLISH.iterdir()):
         receipt = folder / 'bilibili-receipt.json'
-        if folder.name not in known and receipt.is_file() and json.loads(receipt.read_text()).get('publication') == 'public':
+        if folder.name not in known and folder.name not in skipped and receipt.is_file() and json.loads(receipt.read_text()).get('publication') == 'public':
             print(f'新公开的视频还没上官网：{folder.name}。在 content/videos.json 加一条（slug、卡片文案），'
                   f'图文摘要写进 content/tutorials/<slug>.html，再运行本脚本。', file=sys.stderr)
 
