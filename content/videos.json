@@ -1,5 +1,25 @@
 [
   {
+    "slug": "free-ship-delivery",
+    "source": "2026-11-14-免拼自动发货教程",
+    "title": "两人小刀单一键免拼、自动发货",
+    "desc": "两人小刀单买家已付款、待刀成：分清自动免拼和订单写操作两个开关，店铺自动免拼后接着自动发卡、确认发货，聊天里也能一键「开启并免拼」。",
+    "card_title": "两人小刀单怎么免拼发货？",
+    "card_text": "按店铺开自动免拼，免拼后自动发卡；聊天里点「开启并免拼」，开关和这单一步搞定。",
+    "cover_alt": "免拼自动发货视频教程封面：小刀单自动免拼",
+    "toc": [],
+    "note": "视频画面使用本地示例数据，店铺、商品、买家、订单与卡密均为虚构演示。",
+    "auto": {
+      "bvid": "BV1mtsj6sETv",
+      "url": "https://www.bilibili.com/video/BV1mtsj6sETv/",
+      "duration": 139,
+      "chapters": [],
+      "cover": "/img/tutorials/free-ship-delivery.webp",
+      "cover_source_sha256": "6f970f38af58b99db35d26205b4e89e1d31a0df475e5f6b9a81e5a62549870ad",
+      "bilibili_title": "闲鱼两人小刀单，怎么一键免拼、自动发货？"
+    }
+  },
+  {
     "slug": "multi-quantity-delivery",
     "source": "2026-11-14-拍多件自动发货",
     "title": "买家拍多件自动发货",

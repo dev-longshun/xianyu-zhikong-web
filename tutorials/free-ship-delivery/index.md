@@ -105,6 +105,14 @@ Step-by-step Guide
 
 操作后，两项检查均已完成 · 点击图片可放大
 
+## 观看操作视频
+
+需要看连续操作过程，可以打开对应的视频演示。
+
+[去 B 站看完整演示 ↗](https://www.bilibili.com/video/BV1mtsj6sETv/)
+
+时长 2 分 19 秒。
+
 [← 返回教程中心](https://xianyu.dongeai.com/tutorials/)[下载客户端 →](https://xianyu.dongeai.com/download/)
 
 ---

@@ -122,7 +122,17 @@ Guides & Tutorials
 
 看操作过程，也看完成后的实际效果
 
-[![拍多件自动发货视频教程封面：拍几件发几张](https://xianyu.dongeai.com/img/tutorials/multi-quantity-delivery.webp)
+[![免拼自动发货视频教程封面：小刀单自动免拼](https://xianyu.dongeai.com/img/tutorials/free-ship-delivery.webp)
+
+视频教程 · 2 分 19 秒
+
+### 两人小刀单怎么免拼发货？
+
+按店铺开自动免拼，免拼后自动发卡；聊天里点「开启并免拼」，开关和这单一步搞定。
+
+查看教程与 B 站视频 →
+
+](https://xianyu.dongeai.com/tutorials/free-ship-delivery/)[![拍多件自动发货视频教程封面：拍几件发几张](https://xianyu.dongeai.com/img/tutorials/multi-quantity-delivery.webp)
 
 视频教程 · 2 分 12 秒
 
