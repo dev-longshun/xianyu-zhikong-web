@@ -12,6 +12,8 @@ COPY tutorials ./tutorials
 COPY changelog ./changelog
 COPY download ./download
 COPY pricing ./pricing
+# 桌面客户端「教程」页和「联系作者」取的数据（tools/build_pages.py 的 app_guide 生成）
+COPY app ./app
 COPY img ./img
 COPY fonts ./fonts
 ARG REVISION=dev

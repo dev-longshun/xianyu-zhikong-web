@@ -1,5 +1,6 @@
 #!/bin/sh
 # 一键开关购买卡上的作者微信（二维码 + 微信号），改完提交 index.html 并发布到线上。
+# 桌面客户端里的「联系作者」取 app/guide.json，跟着这个开关走：关掉后客户端里也不显示二维码和微信号。
 # 「加微信购买」按钮和标题不受影响，只动二维码和微信号这一块。
 # 用法：sh tools/contact.sh on      放上二维码和微信号并发布
 #       sh tools/contact.sh off     去掉二维码和微信号并发布（线上的二维码图片也一并删掉）
@@ -43,9 +44,11 @@ PY
     sed -n '2,7p' "$0"; exit 1 ;;
 esac
 
+# 重新生成一遍：app/guide.json（桌面客户端「联系作者」取的数据）跟着这个开关走，index.md 等也一起更新
+python3 tools/build_pages.py >/dev/null
 [ "${NO_DEPLOY:-}" = 1 ] && { echo "没有发布（NO_DEPLOY=1）"; exit 0; }
-if ! git diff --quiet -- index.html; then
-  git add index.html
+if ! git diff --quiet -- index.html index.md app/guide.json; then
+  git add index.html index.md app/guide.json
   git commit -q -m "chore: 购买卡作者微信改为${1}"
 fi
 sh deploy/deploy.sh

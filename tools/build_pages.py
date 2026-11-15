@@ -1,5 +1,6 @@
 """生成静态教程、更新日志和下载页：python3 tools/build_pages.py。无需第三方依赖。"""
 from pathlib import Path
+import hashlib
 import html
 import json
 import re
@@ -355,7 +356,51 @@ def build():
     (ROOT/'robots.txt').write_text(seo.robots(ORIGIN))
     sections = [(name, [(u, t, d) for u, t, d, sec in PAGES if sec == name]) for name in ('产品', '安装与入门', '功能教程', '卖家经验')]
     (ROOT/'llms.txt').write_text(seo.llms_txt(ORIGIN, PLANS, LATEST, sections))
-    print(f'已生成 {len(pages)-1} 个内容页、sitemap.xml 与 robots.txt。')
+    app_guide()
+    print(f'已生成 {len(pages)-1} 个内容页、sitemap.xml、robots.txt 与 app/guide.json。')
+
+
+def app_guide():
+    """给桌面客户端「教程」页和「联系作者」用的数据：/app/guide.json，客户端每次打开时来取。
+
+    - 功能清单（分组、一句话说明、在软件里的位置、设置步骤）的原稿是 content/app-guide.json，只在这里维护；
+      target.page / target.section 是客户端里的页面标识，客户端不认识的会自动不显示「去设置」按钮。
+    - 教程列表自动带出本站全部图文、视频教程，新教程上线后客户端里跟着出现。
+    - 联系方式跟首页购买卡的微信开关（tools/contact.sh）走：关着时不带微信号和二维码，客户端里也不显示。
+    字段含义改动要同步软件本体 desktop/src/lib/siteGuide.ts；只加字段不用升 schema。
+    """
+    source = json.loads((ROOT / 'content/app-guide.json').read_text())
+    tutorials = [
+        {'slug': 'windows', 'kind': 'install', 'title': 'Windows 安装与激活', 'desc': '从浏览器下载到安装向导，再到输入激活码。'},
+        {'slug': 'mac', 'kind': 'install', 'title': 'Mac 安装与首次使用', 'desc': '下载 DMG、拖入应用程序，完成激活后开始使用。'},
+    ]
+    tutorials += [{'slug': g['slug'], 'kind': 'guide', 'title': g['title'], 'desc': g.get('card_text') or g['desc']} for g in GUIDES]
+    guide_slugs = {g['slug'] for g in GUIDES}
+    tutorials += [{'slug': v['slug'], 'kind': 'video', 'title': v.get('card_title') or v['title'], 'desc': v.get('card_text') or v['desc']}
+                  for v in VIDEOS if v['slug'] not in guide_slugs]
+    for item in tutorials:
+        item['url'] = f"{ORIGIN}/tutorials/{item['slug']}/"
+    known = {item['slug'] for item in tutorials}
+    for group in source['groups']:
+        for feature in group['features']:
+            slug = feature.get('tutorial')
+            if slug and slug not in known:
+                raise SystemExit(f"content/app-guide.json：功能「{feature['title']}」指向的教程 {slug} 不存在")
+
+    contact = {'visible': False, 'buyUrl': ORIGIN + '/#buy'}
+    qr = ROOT / 'img/wechat-qr.webp'
+    if 'class="buy-contact"' in (ROOT / 'index.html').read_text() and qr.exists():
+        wechat = re.search(r'微信号\s*<b>([^<]+)</b>', (ROOT / 'tools/contact-block.html').read_text())
+        if not wechat:
+            raise SystemExit('tools/contact-block.html 里没找到微信号')
+        # 图片地址带内容指纹：换了二维码，客户端马上拿到新图，不受一天缓存影响
+        contact.update(visible=True, wechatId=wechat.group(1).strip(),
+                       qrUrl=f"{ORIGIN}/img/wechat-qr.webp?v={hashlib.sha256(qr.read_bytes()).hexdigest()[:10]}")
+    data = {'schema': 1, 'tutorialsUrl': ORIGIN + '/tutorials/', 'start': source['start'], 'groups': source['groups'],
+            'tutorials': tutorials, 'contact': contact}
+    target = ROOT / 'app/guide.json'
+    target.parent.mkdir(exist_ok=True)
+    target.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n')
 
 
 def home():
