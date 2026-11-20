@@ -1,5 +1,65 @@
 [
   {
+    "slug": "peek-search-tags",
+    "source": "2026-11-20-消息不显示已读",
+    "title": "消息不显示已读：悄悄看、搜聊天记录、给买家打标记",
+    "desc": "点开会话不显示已读，双击「消息」跳到下一个未读；按聊天内容、昵称、订单号或备注搜会话；给买家打标记，以后按标记筛出来。",
+    "card_title": "闲鱼消息怎么不显示已读？",
+    "card_text": "开悄悄看，点开会话买家那边仍是未读；再加搜聊天记录、给买家打标记两个小功能。",
+    "cover_alt": "消息不显示已读视频教程封面：悄悄看、搜索与标记",
+    "toc": [],
+    "note": "视频画面使用本地示例数据，店铺、商品、买家与对话均为虚构演示。",
+    "auto": {
+      "bvid": "BV1ygsB6jEqL",
+      "url": "https://www.bilibili.com/video/BV1ygsB6jEqL/",
+      "duration": 84,
+      "chapters": [],
+      "cover": "/img/tutorials/peek-search-tags.webp",
+      "cover_source_sha256": "4c1e4cdc09eb0c7d12310aee0d5c7294892e7fa0813e438d53218dfa36194e16",
+      "bilibili_title": "闲鱼消息怎么不显示已读？悄悄看、搜聊天记录、给买家打标记"
+    }
+  },
+  {
+    "slug": "overnight-delivery",
+    "source": "2026-11-19-半夜来单没人发货",
+    "title": "半夜来单没人发货怎么办",
+    "desc": "半夜的单照常自动发：Mac 打开挂机不休眠，Windows 按运行状态自检改睡眠设置；掉线自己恢复登录，恢复不了发邮件叫你，离线期间付款的单重连后提示手动补发。",
+    "card_title": "闲鱼半夜来单没人发货怎么办？",
+    "card_text": "电脑别睡，掉线自己恢复，恢复不了发邮件叫你；离线期间付款的单，重连后提示补发。",
+    "cover_alt": "半夜来单视频教程封面：挂机自动发货",
+    "toc": [],
+    "note": "视频画面使用本地示例数据，店铺、商品、买家、订单与卡密均为虚构演示。",
+    "auto": {
+      "bvid": "BV1iTst6BE9p",
+      "url": "https://www.bilibili.com/video/BV1iTst6BE9p/",
+      "duration": 108,
+      "chapters": [],
+      "cover": "/img/tutorials/overnight-delivery.webp",
+      "cover_source_sha256": "72695e70724ab467203d7a3585d497947232c01244818c6fa27cbc6a2a4d07a7",
+      "bilibili_title": "闲鱼半夜来单没人发货怎么办？"
+    }
+  },
+  {
+    "slug": "account-delivery",
+    "source": "2026-11-18-卖账号自动发货",
+    "title": "卖账号自动发货：账号和密码分开发",
+    "desc": "卡种选「两段」，账号和密码各一行、各带前缀发给买家；添加卡密时左右两框分别粘贴、按行配对，行数对不上不能添加。",
+    "card_title": "闲鱼卖账号怎么自动发货？",
+    "card_text": "卡种选两段，账号和密码分两行发，买家复制哪一样都不会带错；添加时按行配对，不会错位。",
+    "cover_alt": "卖账号自动发货视频教程封面：账号密码分开发",
+    "toc": [],
+    "note": "视频画面使用本地示例数据，店铺、商品、买家、订单与账号均为虚构演示。",
+    "auto": {
+      "bvid": "BV1PrsC6hEd9",
+      "url": "https://www.bilibili.com/video/BV1PrsC6hEd9/",
+      "duration": 109,
+      "chapters": [],
+      "cover": "/img/tutorials/account-delivery.webp",
+      "cover_source_sha256": "c03d274c1f62b4c548f85825bb90b4afb2ce707d88ee04653f0241219adbe111",
+      "bilibili_title": "闲鱼卖账号怎么自动发货？账号和密码分开发，买家不会复制错"
+    }
+  },
+  {
     "slug": "free-ship-delivery",
     "source": "2026-11-14-免拼自动发货教程",
     "title": "两人小刀单一键免拼、自动发货",

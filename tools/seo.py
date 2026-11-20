@@ -72,11 +72,12 @@ def software(origin, plans, latest, features):
         'featureList': features,
         'publisher': {'@id': origin + '/#org'},
         'offers': [{
-            '@type': 'Offer', 'name': name, 'description': fit, 'price': price, 'priceCurrency': 'CNY',
+            '@type': 'Offer', 'name': name + label, 'description': fit, 'price': value, 'priceCurrency': 'CNY',
             'url': origin + '/pricing/', 'availability': 'https://schema.org/InStock',
-            'priceSpecification': {'@type': 'UnitPriceSpecification', 'price': price, 'priceCurrency': 'CNY',
-                                   'referenceQuantity': {'@type': 'QuantitativeValue', 'value': 1, 'unitCode': 'MON'}},
-        } for name, price, fit, _badge, _items in plans],
+            'priceSpecification': {'@type': 'UnitPriceSpecification', 'price': value, 'priceCurrency': 'CNY',
+                                   'referenceQuantity': {'@type': 'QuantitativeValue', 'value': 1, 'unitCode': unit}},
+        } for name, month, year, fit, _badge, _items in plans
+          for label, value, unit in (('（按月付）', month, 'MON'), ('（按年付）', year, 'ANN'))],
     }
 
 
@@ -211,7 +212,7 @@ def markdown_page(page_html, origin, url):
 
 def llms_txt(origin, plans, latest, sections):
     """站点根目录的 llms.txt：一句话说明 + 关键事实 + 按栏目列出的页面（附 Markdown 版地址）。"""
-    price = '；'.join(f'{name} {price} 元 / 月（{fit}）' for name, price, fit, _b, _i in plans)
+    price = '；'.join(f'{name} {month} 元 / 月或 {year} 元 / 年（{fit}）' for name, month, year, fit, _b, _i in plans)
     lines = [
         '# 闲鱼智控',
         '',
@@ -219,7 +220,7 @@ def llms_txt(origin, plans, latest, sections):
         '买家来问按关键词自动回复，发货后到点提醒收货，确认收货后自动好评，并能看经营数据、逐笔对账。',
         '',
         '关键事实：',
-        f'- 价格：{price}。两个版本功能完全一样，区别只在每台电脑能登录几个闲鱼账号。',
+        f'- 价格：{price}。两个版本功能完全一样，区别只在每台电脑能登录几个闲鱼账号。按年付约 8 折，年付会员可以和作者商量定制功能。',
         '- 一份授权可以激活两台电脑；下载后联系作者可以先领 7 天免费试用。',
         '- 系统：Mac（Apple 芯片，macOS 11 及以上）、Windows 10 / 11（64 位）。手机不能安装。',
         '- 软件在电脑上运行，电脑开机联网、客户端保持运行时，自动发货和自动回复才会工作。',

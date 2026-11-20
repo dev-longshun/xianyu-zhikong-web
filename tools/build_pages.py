@@ -29,19 +29,30 @@ ARTICLES = json.loads(ARTICLES_PATH.read_text()) if ARTICLES_PATH.exists() else 
 PAGES = []
 LASTMOD = {}
 
-# 价格页与结构化数据共用。价格与版本规则来源——基础版 19 元 / 月、高级版 29 元 / 月（作者 2026-11-02 定），
-# 账号规则见软件本体 cloud/license-server/README.md「码分两个版本」。没定的价格（季付、年付、升级补差）不写。
+# 价格页与结构化数据共用。价格与版本规则来源——基础版 19 元 / 月、高级版 29 元 / 月（作者 2026-11-02 定）；
+# 年付约 8 折：基础版 178 元 / 年、高级版 278 元 / 年，年付会员可以和作者商量定制功能（作者 2026-11-20 定）。
+# 账号规则见软件本体 cloud/license-server/README.md「码分两个版本」。没定的价格（季付、升级补差）不写。
+# 字段：(版本, 月付价, 年付价, 适合谁, 角标, 要点)
 PLANS = [
-    ('基础版', '19', '一台电脑管一个店铺', '', [
+    ('基础版', '19', '178', '一台电脑管一个店铺', '', [
         '每台电脑登录 1 个闲鱼账号，两台电脑一共 2 个',
         '换账号先退出当前账号，再扫码登录新账号',
         '一份授权激活两台电脑，Mac 和 Windows 都能用',
         '全部功能：自动发货、自动回复、提醒收货、自动评价、经营数据']),
-    ('高级版', '29', '一台电脑管多个店铺', '多店铺选这个', [
+    ('高级版', '29', '278', '一台电脑管多个店铺', '多店铺选这个', [
         '每台电脑登录的闲鱼账号数量不限',
         '多个店铺在同一个客户端里，顶栏一点就切换',
         '一份授权激活两台电脑，Mac 和 Windows 都能用',
         '全部功能：自动发货、自动回复、提醒收货、自动评价、经营数据']),
+]
+BILLING = [
+    ('按月付', '用多久买多久', [
+        '软件现有的全部功能都能用，更新免费',
+        '提的建议作者都会看，能做的会排进更新']),
+    ('按年付', '约 8 折，还能定制功能', [
+        '一次付 12 个月，比按月付省约两成',
+        '可以和作者商量定制功能：你店里具体需要什么，作者单独给你做',
+        '提的建议和遇到的问题，作者优先处理']),
 ]
 FEATURES = ['付款后自动发货：卡密、网盘链接、文字，支持多规格和接口实时取卡', '关键词自动回复，图文一起发，买家语音自动转文字',
             '发货后自动提醒买家确认收货，有售后的单自动跳过', '确认收货后自动好评，自动求小红花',
@@ -274,18 +285,24 @@ def build():
 
     # 价格与版本规则见文件开头的 PLANS
     title = '价格'
-    desc = '两个版本功能完全一样，区别只在每台电脑能登录几个闲鱼账号。基础版 19 元一个月，高级版 29 元一个月。'
+    desc = '两个版本功能完全一样，区别只在每台电脑能登录几个闲鱼账号。基础版 19 元一个月，高级版 29 元一个月；按年付约 8 折，还能和作者商量定制功能。'
     plans = PLANS
     plan_html = ''.join(
         f'<section class="plan{" plan-featured" if badge else ""}" aria-labelledby="plan-{n}"><div class="plan-top"><h2 id="plan-{n}">{name}</h2>'
         + (f'<span class="tag">{badge}</span>' if badge else '')
-        + f'</div><p class="plan-fit">{fit}</p><p class="plan-price"><b>{price}</b> 元 / 月</p><ul>'
+        + f'</div><p class="plan-fit">{fit}</p><p class="plan-price"><b>{price}</b> 元 / 月</p>'
+        + f'<p class="plan-year">按年付 <b>{year}</b> 元 / 年<span>约 8 折</span></p><ul>'
         + ''.join(f'<li>{esc(item)}</li>' for item in items)
         + '</ul><a class="btn" href="/#buy">加微信购买</a></section>'
-        for n, (name, price, fit, badge, items) in enumerate(plans))
+        for n, (name, price, year, fit, badge, items) in enumerate(plans))
+    billing_html = ''.join(
+        f'<section class="billing-card{" billing-year" if n else ""}"><h3>{name}</h3><p class="billing-fit">{fit}</p><ul>'
+        + ''.join(f'<li>{esc(item)}</li>' for item in items) + '</ul></section>'
+        for n, (name, fit, items) in enumerate(BILLING))
     yes = '<span class="yes" aria-label="包含">✓</span>'
     rows = [
-        ('价格', '19 元 / 月', '29 元 / 月'),
+        ('按月付', '19 元 / 月', '29 元 / 月'),
+        ('按年付（约 8 折）', '178 元 / 年', '278 元 / 年'),
         ('可激活的电脑', '2 台', '2 台'),
         ('每台电脑可登录的闲鱼账号', '1 个', '<b>不限</b>'),
         ('两台电脑一共可登录', '2 个', '<b>不限</b>'),
@@ -307,6 +324,7 @@ def build():
         ('两个版本有什么区别？', '功能完全一样，区别只在每台电脑能登录几个闲鱼账号：基础版 1 个，高级版不限。只有一个店铺选基础版就够了。'),
         ('基础版怎么换账号？', '点顶部账号旁的 × 退出当前账号，再扫码登录新账号。退出后聊天记录、订单和设置都留在本机，以后重新登录同一个账号即可恢复。'),
         ('买了基础版，以后能升级吗？', '能。联系作者把激活码升级为高级版，不用重新激活。在客户端「关于与更新」的授权信息里点「重新检查」立即生效，不点也会在 10 分钟内生效。'),
+        ('按月付和按年付有什么不一样？', '软件功能一样。按年付一次付 12 个月，约 8 折：基础版 178 元一年，高级版 278 元一年。按年付还可以和作者商量定制功能，你店里需要什么具体功能，作者单独给你做，提的建议和遇到的问题也优先处理；按月付提的建议作者也会看，能做的会排进更新。'),
         ('以前买的激活码算哪个版本？', '此前购买的激活码都按高级版使用，账号数量不限，更新客户端后也不变。'),
         ('基础版激活码对客户端版本有要求吗？', '需要 1.4.0 及以上版本。官网下载的就是最新版；装着旧版本的，先在「关于与更新」里检查更新。'),
         ('没买能先下载看看吗？', '能。下载安装后不激活也能打开，看看界面和功能；想登录店铺实际用一用，联系作者可以领 7 天免费试用。正式使用要输入激活码。'),
@@ -314,10 +332,11 @@ def build():
     faq_html = ''.join(f'<details><summary>{q}</summary><p>{a}</p></details>' for q, a in faqs)
     body = head(title, desc, 'Pricing') + f'''<div class="wrap">
 <div class="plans">{plan_html}</div>
-<section class="content-section" aria-labelledby="compare"><div class="section-heading"><h2 id="compare">两个版本对比</h2><p>按月付费，两个版本都最多激活两台电脑</p></div>{table}</section>
+<section class="content-section" aria-labelledby="billing"><div class="section-heading"><h2 id="billing">按月付还是按年付</h2><p>两种付法软件功能一样，区别在价格和能不能定制</p></div><div class="billing">{billing_html}</div></section>
+<section class="content-section" aria-labelledby="compare"><div class="section-heading"><h2 id="compare">两个版本对比</h2><p>两个版本都最多激活两台电脑</p></div>{table}</section>
 <section class="content-section" aria-labelledby="pricing-faq"><div class="section-heading"><h2 id="pricing-faq">关于版本和购买</h2></div><div class="faq">{faq_html}</div></section>
 <div class="help-strip"><p>拿不准选哪个？加作者微信说说你有几个店铺。</p><a href="/#buy">加微信购买 →</a></div></div>'''
-    pages.append(page('/pricing/', title, desc, body, '/pricing/', seo_title='闲鱼智控价格：基础版 19 元 / 月，高级版 29 元 / 月', section='产品',
+    pages.append(page('/pricing/', title, desc, body, '/pricing/', seo_title='闲鱼智控价格：基础版 19 元 / 月，高级版 29 元 / 月，按年付约 8 折', section='产品',
                       extra=[seo.software(ORIGIN, PLANS, LATEST, FEATURES)]))
 
     title = '更新日志'

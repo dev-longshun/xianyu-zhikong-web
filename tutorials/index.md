@@ -32,7 +32,25 @@ Guides & Tutorials
 
 按步骤操作，关键设置截图随时放大查看
 
-[ 图文教程 · 10 张操作截图
+[ 图文教程 · 9 张操作截图
+
+### 闲鱼消息：悄悄看、搜索聊天与买家标记
+
+打开会话前先开悄悄看；按聊天内容或订单号找记录；用标记筛出要跟进的买家。
+
+按步骤配置 →](https://xianyu.dongeai.com/tutorials/peek-search-tags/)[ 图文教程 · 10 张操作截图
+
+### 闲鱼半夜来单：挂机、恢复登录与离线补发
+
+电脑保持运行，正常付款自动发；掉线先恢复，离线期间的订单核对后手动补发。
+
+按步骤配置 →](https://xianyu.dongeai.com/tutorials/overnight-delivery/)[ 图文教程 · 7 张操作截图
+
+### 闲鱼卖账号，设置账号密码自动发货
+
+账号和密码各一行；添加前核对配对，行数不一致会拦下。
+
+按步骤配置 →](https://xianyu.dongeai.com/tutorials/account-delivery/)[ 图文教程 · 10 张操作截图
 
 ### 闲鱼两人小刀单，怎么免拼和自动发货
 
@@ -122,7 +140,37 @@ Guides & Tutorials
 
 看操作过程，也看完成后的实际效果
 
-[![免拼自动发货视频教程封面：小刀单自动免拼](https://xianyu.dongeai.com/img/tutorials/free-ship-delivery.webp)
+[![消息不显示已读视频教程封面：悄悄看、搜索与标记](https://xianyu.dongeai.com/img/tutorials/peek-search-tags.webp)
+
+视频教程 · 1 分 24 秒
+
+### 闲鱼消息怎么不显示已读？
+
+开悄悄看，点开会话买家那边仍是未读；再加搜聊天记录、给买家打标记两个小功能。
+
+查看教程与 B 站视频 →
+
+](https://xianyu.dongeai.com/tutorials/peek-search-tags/)[![半夜来单视频教程封面：挂机自动发货](https://xianyu.dongeai.com/img/tutorials/overnight-delivery.webp)
+
+视频教程 · 1 分 48 秒
+
+### 闲鱼半夜来单没人发货怎么办？
+
+电脑别睡，掉线自己恢复，恢复不了发邮件叫你；离线期间付款的单，重连后提示补发。
+
+查看教程与 B 站视频 →
+
+](https://xianyu.dongeai.com/tutorials/overnight-delivery/)[![卖账号自动发货视频教程封面：账号密码分开发](https://xianyu.dongeai.com/img/tutorials/account-delivery.webp)
+
+视频教程 · 1 分 49 秒
+
+### 闲鱼卖账号怎么自动发货？
+
+卡种选两段，账号和密码分两行发，买家复制哪一样都不会带错；添加时按行配对，不会错位。
+
+查看教程与 B 站视频 →
+
+](https://xianyu.dongeai.com/tutorials/account-delivery/)[![免拼自动发货视频教程封面：小刀单自动免拼](https://xianyu.dongeai.com/img/tutorials/free-ship-delivery.webp)
 
 视频教程 · 2 分 19 秒
 
