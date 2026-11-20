@@ -277,6 +277,27 @@
       "url": "https://xianyu.dongeai.com/tutorials/mac/"
     },
     {
+      "slug": "card-dedup",
+      "kind": "guide",
+      "title": "闲鱼卡密查重：补货防重复，老库存找出多余记录",
+      "desc": "添加前查本批、库存和已售重复；只入库新卡密，再检查老库存并停用多余记录。",
+      "url": "https://xianyu.dongeai.com/tutorials/card-dedup/"
+    },
+    {
+      "slug": "message-alerts",
+      "kind": "guide",
+      "title": "闲鱼新消息弹窗与超时未回复邮件提醒怎么设置",
+      "desc": "电脑前看弹窗，离开电脑收邮件；配置发件邮箱、开启超时未回复，再按需要设发送时段。",
+      "url": "https://xianyu.dongeai.com/tutorials/message-alerts/"
+    },
+    {
+      "slug": "chat-video",
+      "kind": "guide",
+      "title": "闲鱼聊天怎么发视频：直发、快捷回复和自动回复",
+      "desc": "在消息页发视频，把常用教程存成快捷回复，或通过关键词规则自动发送。",
+      "url": "https://xianyu.dongeai.com/tutorials/chat-video/"
+    },
+    {
       "slug": "peek-search-tags",
       "kind": "guide",
       "title": "闲鱼消息：悄悄看、搜索聊天与买家标记",

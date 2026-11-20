@@ -28,6 +28,9 @@
 
 ## 功能教程
 
+- [闲鱼卡密查重：补货防重复，老库存找出多余记录](https://xianyu.dongeai.com/tutorials/card-dedup/): 添加前查本批、库存和已售重复；只入库新卡密，再检查老库存并停用多余记录。
+- [闲鱼新消息弹窗与超时未回复邮件提醒怎么设置](https://xianyu.dongeai.com/tutorials/message-alerts/): 电脑前看弹窗，离开电脑收邮件；配置发件邮箱、开启超时未回复，再按需要设发送时段。
+- [闲鱼聊天怎么发视频：直发、快捷回复和自动回复](https://xianyu.dongeai.com/tutorials/chat-video/): 在消息页发视频，把常用教程存成快捷回复，或通过关键词规则自动发送。
 - [闲鱼消息：悄悄看、搜索聊天与买家标记](https://xianyu.dongeai.com/tutorials/peek-search-tags/): 打开会话前先开悄悄看；按聊天内容或订单号找记录；用标记筛出要跟进的买家。
 - [闲鱼半夜来单：挂机、恢复登录与离线补发](https://xianyu.dongeai.com/tutorials/overnight-delivery/): 电脑保持运行，正常付款自动发；掉线先恢复，离线期间的订单核对后手动补发。
 - [闲鱼卖账号，设置账号密码自动发货](https://xianyu.dongeai.com/tutorials/account-delivery/): 创建两段卡种，分别粘贴账号和密码，按行配对后自动发货。
