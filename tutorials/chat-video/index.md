@@ -76,6 +76,14 @@ Step-by-step Guide
 
 视频文件不随云同步。另一台电脑提示本机没有视频文件时，请移除后重新添加。手机拍摄的 HEVC / H.265 视频若读不出画面，先转成 H.264 的 MP4 再发。发送失败的视频气泡可点击重试。
 
+## 观看操作视频
+
+需要看连续操作过程，可以打开对应的视频演示。
+
+[去 B 站看完整演示 ↗](https://www.bilibili.com/video/BV1PdyazcE7N/)
+
+时长 1 分 33 秒。
+
 [← 返回教程中心](https://xianyu.dongeai.com/tutorials/)[下载客户端 →](https://xianyu.dongeai.com/download/)
 
 ---

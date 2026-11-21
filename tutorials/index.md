@@ -158,7 +158,17 @@ Guides & Tutorials
 
 看操作过程，也看完成后的实际效果
 
-[![消息不显示已读视频教程封面：悄悄看、搜索与标记](https://xianyu.dongeai.com/img/tutorials/peek-search-tags.webp)
+[![聊天发视频视频教程封面：消息页直发、快捷回复、自动回复](https://xianyu.dongeai.com/img/tutorials/chat-video.webp)
+
+视频教程 · 1 分 33 秒
+
+### 闲鱼聊天怎么给买家发视频？
+
+买家问怎么用，发一段操作视频最清楚：消息页直接发，存成快捷短语，或让自动回复带上教程视频。
+
+查看教程与 B 站视频 →
+
+](https://xianyu.dongeai.com/tutorials/chat-video/)[![消息不显示已读视频教程封面：悄悄看、搜索与标记](https://xianyu.dongeai.com/img/tutorials/peek-search-tags.webp)
 
 视频教程 · 1 分 24 秒
 

@@ -1,5 +1,25 @@
 [
   {
+    "slug": "chat-video",
+    "source": "2026-11-21-聊天发视频",
+    "title": "聊天发视频：消息页直发、快捷回复和自动回复带视频",
+    "desc": "消息页点视频按钮或把视频拖进聊天窗口直接发，MP4、MOV 都行，最大 200MB；常发的视频存成快捷短语，点整条短语依次发出文字、图片、视频；自动回复规则也能带上教程视频。",
+    "card_title": "闲鱼聊天怎么给买家发视频？",
+    "card_text": "买家问怎么用，发一段操作视频最清楚：消息页直接发，存成快捷短语，或让自动回复带上教程视频。",
+    "cover_alt": "聊天发视频视频教程封面：消息页直发、快捷回复、自动回复",
+    "toc": [],
+    "note": "视频画面使用本地示例数据，店铺、商品、买家与对话均为虚构演示。",
+    "auto": {
+      "bvid": "BV1PdyazcE7N",
+      "url": "https://www.bilibili.com/video/BV1PdyazcE7N/",
+      "duration": 93,
+      "chapters": [],
+      "cover": "/img/tutorials/chat-video.webp",
+      "cover_source_sha256": "032078229a53c38a5130e1e7127cc11c71539cae35f000403d10e7b39e9ab3d9",
+      "bilibili_title": "闲鱼聊天怎么给买家发视频？买家问怎么用，自动回一段教程视频"
+    }
+  },
+  {
     "slug": "peek-search-tags",
     "source": "2026-11-20-消息不显示已读",
     "title": "消息不显示已读：悄悄看、搜聊天记录、给买家打标记",
