@@ -1,0 +1,33 @@
+<div class="note"><p>适用版本：2.2.0。</p></div>
+<p>按当前2.2.0界面，从零设置本地卡密自动发货。</p>
+<h2 id="step-1">一、先分清固定内容和动态卡密</h2>
+<p>每个买家拿到同一个网盘链接或说明文档，选固定内容；每单要发不同的兑换码，选动态卡密。自动发货前保持软件运行、店铺在线。</p>
+<h2 id="step-2">二、建一个一段卡种</h2>
+<p>左侧「发货」→「卡种」→「创建卡种」，填写卡种名。一条兑换码选「一段」；设置库存预警10，可用卡密少于10张时提醒。发货预览能查看买家收到的样子。</p>
+<figure class="guide-image"><a href="/img/tutorials/card-auto-delivery/01-kind.webp" aria-label="放大查看：建一个一段卡种"><img src="/img/tutorials/card-auto-delivery/01-kind.webp" width="1512" height="1500" loading="lazy" decoding="async" alt="建一个一段卡种"></a><figcaption>建一个一段卡种 · 点击图片可放大</figcaption></figure>
+<h2 id="step-3">三、添加卡密，先查重再入库</h2>
+<p>卡种行点「添加卡密」，一行一条粘贴。软件会查本批重复、库存已有和以前卖出过的卡密。核对后点「只添加不重复的」，本例15行里13条新码入库。</p>
+<figure class="guide-image"><a href="/img/tutorials/card-auto-delivery/02-duplicates.webp" aria-label="放大查看：添加卡密，先查重再入库"><img src="/img/tutorials/card-auto-delivery/02-duplicates.webp" width="1512" height="834" loading="lazy" decoding="async" alt="添加卡密，先查重再入库"></a><figcaption>添加卡密，先查重再入库 · 点击图片可放大</figcaption></figure>
+<h2 id="step-4">四、可选：加一条使用说明</h2>
+<p>「内容模板」→「创建内容模板」，填写名称、说明，光标放到要发码的地方点变量「卡密信息」。发货时替换成本单实际取出的码，不建也可用默认模板。</p>
+<figure class="guide-image"><a href="/img/tutorials/card-auto-delivery/03-template.webp" aria-label="放大查看：可选：加一条使用说明"><img src="/img/tutorials/card-auto-delivery/03-template.webp" width="1512" height="1500" loading="lazy" decoding="async" alt="可选：加一条使用说明"></a><figcaption>可选：加一条使用说明 · 点击图片可放大</figcaption></figure>
+<h2 id="step-5">五、在销售中给商品绑定</h2>
+<p>顶部「发货」→「销售中」，找到商品，在「买家付款后发货」一栏点「设置」。选动态卡密、对应卡种与内容模板，启用后保存。未设置的多规格商品点「设置」会直接进入逐规格面板；已有整商品设置时，可点「按规格设置」分别绑定。</p>
+<figure class="guide-image"><a href="/img/tutorials/card-auto-delivery/04-binding.webp" aria-label="放大查看：在销售中给商品绑定"><img src="/img/tutorials/card-auto-delivery/04-binding.webp" width="1512" height="1500" loading="lazy" decoding="async" alt="在销售中给商品绑定"></a><figcaption>在销售中给商品绑定 · 点击图片可放大</figcaption></figure>
+<figure class="guide-image"><a href="/img/tutorials/card-auto-delivery/05-multi.webp" aria-label="放大查看：在销售中给商品绑定"><img src="/img/tutorials/card-auto-delivery/05-multi.webp" width="2032" height="784" loading="lazy" decoding="async" alt="在销售中给商品绑定"></a><figcaption>在销售中给商品绑定 · 点击图片可放大</figcaption></figure>
+<h2 id="step-6">六、付款后核对聊天和已售记录</h2>
+<p>买家实际购买数量决定取卡数量。本例1件发1个码、3件发3个码，每单发到聊天后自动确认发货。卡种里查看剩余库存和已售列表，核对卡密对应订单。</p>
+<figure class="guide-image"><a href="/img/tutorials/card-auto-delivery/06-one-code.webp" aria-label="放大查看：付款后核对聊天和已售记录"><img src="/img/tutorials/card-auto-delivery/06-one-code.webp" width="1364" height="1246" loading="lazy" decoding="async" alt="付款后核对聊天和已售记录"></a><figcaption>付款后核对聊天和已售记录 · 点击图片可放大</figcaption></figure>
+<figure class="guide-image"><a href="/img/tutorials/card-auto-delivery/07-three-codes.webp" aria-label="放大查看：付款后核对聊天和已售记录"><img src="/img/tutorials/card-auto-delivery/07-three-codes.webp" width="1364" height="1246" loading="lazy" decoding="async" alt="付款后核对聊天和已售记录"></a><figcaption>付款后核对聊天和已售记录 · 点击图片可放大</figcaption></figure>
+<figure class="guide-image"><a href="/img/tutorials/card-auto-delivery/08-sold.webp" aria-label="放大查看：付款后核对聊天和已售记录"><img src="/img/tutorials/card-auto-delivery/08-sold.webp" width="2200" height="463" loading="lazy" decoding="async" alt="付款后核对聊天和已售记录"></a><figcaption>付款后核对聊天和已售记录 · 点击图片可放大</figcaption></figure>
+<h2 id="step-7">七、库存预警与缺货手动补发</h2>
+<p>库存低于预警会弹窗。卖空未发货的单列在「缺货未发货的订单」。补够卡密后不会自动补发，回到该单会话点「去发货」→「手动补发」，核对数量再点「确定补发」。</p>
+<figure class="guide-image"><a href="/img/tutorials/card-auto-delivery/09-stock-alert.webp" aria-label="放大查看：库存预警与缺货手动补发"><img src="/img/tutorials/card-auto-delivery/09-stock-alert.webp" width="1192" height="738" loading="lazy" decoding="async" alt="库存预警与缺货手动补发"></a><figcaption>库存预警与缺货手动补发 · 点击图片可放大</figcaption></figure>
+<figure class="guide-image"><a href="/img/tutorials/card-auto-delivery/10-redeliver.webp" aria-label="放大查看：库存预警与缺货手动补发"><img src="/img/tutorials/card-auto-delivery/10-redeliver.webp" width="1272" height="836" loading="lazy" decoding="async" alt="库存预警与缺货手动补发"></a><figcaption>库存预警与缺货手动补发 · 点击图片可放大</figcaption></figure>
+<h2 id="step-8">八、每单都一样的链接选固定内容</h2>
+<p>内容模板写好网盘链接与提取码。商品设置中将「发货内容」改成「固定内容」，选择模板；发货卡种一栏消失，不消耗卡种库存。</p>
+<figure class="guide-image"><a href="/img/tutorials/card-auto-delivery/11-fixed-template.webp" aria-label="放大查看：每单都一样的链接选固定内容"><img src="/img/tutorials/card-auto-delivery/11-fixed-template.webp" width="1512" height="1500" loading="lazy" decoding="async" alt="每单都一样的链接选固定内容"></a><figcaption>每单都一样的链接选固定内容 · 点击图片可放大</figcaption></figure>
+<figure class="guide-image"><a href="/img/tutorials/card-auto-delivery/12-fixed-binding.webp" aria-label="放大查看：每单都一样的链接选固定内容"><img src="/img/tutorials/card-auto-delivery/12-fixed-binding.webp" width="1512" height="1474" loading="lazy" decoding="async" alt="每单都一样的链接选固定内容"></a><figcaption>每单都一样的链接选固定内容 · 点击图片可放大</figcaption></figure>
+<h2 id="step-9">九、保持软件运行和店铺在线</h2>
+<p>设置→运行状态→「挂机不休眠」，打开「阻止电脑睡眠」。软件保持开着、店铺在线，才能继续自动发货。</p>
+<figure class="guide-image"><a href="/img/tutorials/card-auto-delivery/13-keep-awake.webp" aria-label="放大查看：保持软件运行和店铺在线"><img src="/img/tutorials/card-auto-delivery/13-keep-awake.webp" width="2200" height="1238" loading="lazy" decoding="async" alt="保持软件运行和店铺在线"></a><figcaption>保持软件运行和店铺在线 · 点击图片可放大</figcaption></figure>

@@ -1,0 +1,83 @@
+---
+title: 闲鱼怎么用电脑发商品：发布同款与多规格完整教程 · 闲鱼智控
+url: https://xianyu.dongeai.com/tutorials/publish-product/
+description: 电脑管理各店商品，发布新商品、设置多规格价格库存，再用发布同款换店发布。
+---
+
+Step-by-step Guide
+
+# 闲鱼怎么用电脑发商品：发布同款与多规格完整教程
+
+电脑管理各店商品，发布新商品、设置多规格价格库存，再用发布同款换店发布。
+
+图文教程 · 9 张操作截图 适用版本 2.2.0 更新于 2026-11-22
+
+适用版本：2.2.0。
+
+先在闲鱼智控里登录并保持至少一个店铺在线，再进入左侧「商品」。发布前核对图片、描述、价格、发货方式和所在地。
+
+## 一、打开商品页，查看各店铺的货
+
+左边点「商品」，选择某一家店铺或「全部店铺」。在售列表显示价格、自动发货状态和来源；软件发过的商品有「软件发布」标记。想要、浏览和库存，需要点开商品读取详情后才会显示。
+
+[![在商品列表看价格与自动发货状态](https://xianyu.dongeai.com/img/tutorials/publish-product/01-products.webp)](https://xianyu.dongeai.com/img/tutorials/publish-product/01-products.webp)
+
+在商品列表看价格与自动发货状态 · 点击图片可放大
+
+[![点开商品查看想要、浏览、库存和规格](https://xianyu.dongeai.com/img/tutorials/publish-product/02-detail.webp)](https://xianyu.dongeai.com/img/tutorials/publish-product/02-detail.webp)
+
+点开商品查看想要、浏览、库存和规格 · 点击图片可放大
+
+## 二、发布商品：选店铺、加图片、写描述
+
+点「发布商品」，先选「发布到店铺」。图片最多9张，可拖进来或点选，拖动调整顺序，第一张是首图。闲鱼没有单独的标题，直接用描述开头当标题；描述最多1500字。图片和描述填好后，由平台识别类目，只能从推荐类目中选。描述或图片改过时，点「重新识别」更新。
+
+[![选择店铺，填写图片、描述并识别类目](https://xianyu.dongeai.com/img/tutorials/publish-product/03-publish-form.webp)](https://xianyu.dongeai.com/img/tutorials/publish-product/03-publish-form.webp)
+
+选择店铺，填写图片、描述并识别类目 · 点击图片可放大
+
+## 三、价格、发货方式与多规格
+
+卖虚拟货选择「无需邮寄」。一件商品有月卡、季卡、年卡等不同档位时，打开「多规格」，填规格类型「时长」，再添加各个规格值。每种规格至少2个值，最多2种规格类型。表格中每个组合各填价格和库存；可先填「批量价格」「批量库存」，点「填到全部」后单独调整。
+
+[![多规格分别填写价格与库存](https://xianyu.dongeai.com/img/tutorials/publish-product/04-specs.webp)](https://xianyu.dongeai.com/img/tutorials/publish-product/04-specs.webp)
+
+多规格分别填写价格与库存 · 点击图片可放大
+
+## 四、发布成功后，继续设置自动发货
+
+核对完点「发布」，商品会发到所选闲鱼店铺。有违禁词时先按提示修改。出现「已发布」后，可点「去设置自动发货」，进入发货页后再点「发货 → 销售中」，找到新商品并绑定卡密和内容模板。若提示「需要实人认证」，先在手机闲鱼完成认证后再回来发布；若平台暂时限制这个号发布，按平台提示处理。
+
+[![发布成功后继续设置自动发货](https://xianyu.dongeai.com/img/tutorials/publish-product/05-published.webp)](https://xianyu.dongeai.com/img/tutorials/publish-product/05-published.webp)
+
+发布成功后继续设置自动发货 · 点击图片可放大
+
+[![新商品进入发货页](https://xianyu.dongeai.com/img/tutorials/publish-product/06-delivery-entry.webp)](https://xianyu.dongeai.com/img/tutorials/publish-product/06-delivery-entry.webp)
+
+新商品进入发货页 · 点击图片可放大
+
+## 五、同一种货，用发布同款再发
+
+点开一件商品，再点「发布同款」。图片、描述、价格和多规格会带进新表单，改好再发布，原商品不受影响。要发到另一个店，修改「发布到店铺」；换店后类目和服务按新店铺重新识别。发货方式、所在地和服务请再核对一遍。
+
+[![发布同款带出资料，可换在线店铺](https://xianyu.dongeai.com/img/tutorials/publish-product/07-copy-other-shop.webp)](https://xianyu.dongeai.com/img/tutorials/publish-product/07-copy-other-shop.webp)
+
+发布同款带出资料，可换在线店铺 · 点击图片可放大
+
+## 六、不卖了就下架，再卖要重新发布
+
+在商品详情底部点「下架」，看清确认提示后确认。下架后买家看不到这件商品。「已下架」只列出在本软件里下架过的商品。闲鱼网页版不支持重新上架，之后想再卖，用「发布同款」照着它新发一件。
+
+[![下架前看清重新售卖的方式](https://xianyu.dongeai.com/img/tutorials/publish-product/08-downshelf-warning.webp)](https://xianyu.dongeai.com/img/tutorials/publish-product/08-downshelf-warning.webp)
+
+下架前看清重新售卖的方式 · 点击图片可放大
+
+[![在已下架栏查看结果](https://xianyu.dongeai.com/img/tutorials/publish-product/09-downshelved.webp)](https://xianyu.dongeai.com/img/tutorials/publish-product/09-downshelved.webp)
+
+在已下架栏查看结果 · 点击图片可放大
+
+[← 返回教程中心](https://xianyu.dongeai.com/tutorials/)[下载客户端 →](https://xianyu.dongeai.com/download/)
+
+---
+
+网页版：https://xianyu.dongeai.com/tutorials/publish-product/　·　闲鱼智控是第三方闲鱼卖家工具，与闲鱼官方无关。

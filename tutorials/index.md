@@ -32,7 +32,37 @@ Guides & Tutorials
 
 按步骤操作，关键设置截图随时放大查看
 
-[ 图文教程 · 8 张操作截图
+[ 图文教程 · 11 张操作截图
+
+### 闲鱼违禁词不回复：命中后整个会话停，检查后再恢复
+
+编辑词表、命中停会话，拦截记录查看与手动恢复。
+
+按步骤配置 →](https://xianyu.dongeai.com/tutorials/banned-words/)[ 图文教程 · 11 张操作截图
+
+### 闲鱼自动好评：跳过不该评的订单，漏评一键补
+
+收货自动好评，四类跳过、消息预判与后台补评。
+
+按步骤配置 →](https://xianyu.dongeai.com/tutorials/auto-rate/)[ 图文教程 · 13 张操作截图
+
+### 闲鱼卖卡密自动发货：2026新手完整教程
+
+建卡种、导入查重、绑商品，核对自动发货和缺货补发。
+
+按步骤配置 →](https://xianyu.dongeai.com/tutorials/card-auto-delivery/)[ 图文教程 · 8 张操作截图
+
+### 闲鱼定时差评：按评价截止自动提交
+
+会话排定时差评，自定提交时间，买家先评自动改卡7天截止。
+
+按步骤配置 →](https://xianyu.dongeai.com/tutorials/dispute-rate/)[ 图文教程 · 9 张操作截图
+
+### 闲鱼怎么用电脑发商品：发布同款与多规格完整教程
+
+电脑发布商品与多规格，发布同款换店再发，下架后用同款重新发布。
+
+按步骤配置 →](https://xianyu.dongeai.com/tutorials/publish-product/)[ 图文教程 · 8 张操作截图
 
 ### 闲鱼卡密查重：补货防重复，老库存找出多余记录
 
@@ -300,9 +330,9 @@ Guides & Tutorials
 
 ](https://xianyu.dongeai.com/tutorials/auto-delivery/)
 
-安装或设置时遇到问题？可以联系作者说明具体情况。
+安装或设置时遇到问题？可以进 QQ 群私聊客服说明具体情况。
 
-[联系作者 →](https://xianyu.dongeai.com/#buy)
+[联系群主 →](https://xianyu.dongeai.com/#buy)
 
 ---
 
