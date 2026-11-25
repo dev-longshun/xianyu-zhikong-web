@@ -10,7 +10,7 @@ Download
 
 选好你的电脑系统，下载闲鱼智控。可以先打开看看界面，登录店铺前再完成激活。
 
-当前版本 v2.2.0 发布于 2026-11-20[查看更新内容 →](https://xianyu.dongeai.com/changelog/)
+当前版本 v2.2.1 发布于 2026-11-25[查看更新内容 →](https://xianyu.dongeai.com/changelog/)
 
 ## Mac 版
 
