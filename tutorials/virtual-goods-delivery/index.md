@@ -125,7 +125,7 @@ Seller Notes
 
 能。一个客户端可以登录多个闲鱼店铺，每个店铺的商品各自设置发货。基础版每台电脑登录 1 个店铺，高级版不限，见[价格](https://xianyu.dongeai.com/pricing/)。
 
-想直接试试？下载闲鱼智控，联系作者可以先领 7 天免费试用。
+想直接试试？下载闲鱼智控，进 QQ 群私聊客服可以先领免费试用。
 
 [下载客户端 →](https://xianyu.dongeai.com/download/)
 

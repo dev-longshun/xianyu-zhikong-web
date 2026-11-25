@@ -1,12 +1,12 @@
 #!/bin/sh
-# 一键开关购买卡上的作者微信（二维码 + 微信号），改完提交 index.html 并发布到线上。
-# 桌面客户端里的「联系作者」取 app/guide.json，跟着这个开关走：关掉后客户端里也不显示二维码和微信号。
-# 「加微信购买」按钮和标题不受影响，只动二维码和微信号这一块。
-# 用法：sh tools/contact.sh on      放上二维码和微信号并发布
-#       sh tools/contact.sh off     去掉二维码和微信号并发布（线上的二维码图片也一并删掉）
+# 一键开关购买卡上的 QQ 群（二维码 + 群号），改完提交 index.html 并发布到线上。
+# 桌面客户端里的「联系作者」取 app/guide.json，跟着这个开关走：关掉后客户端里也不显示二维码和群号。
+# 「加 QQ 群购买」按钮和标题不受影响，只动二维码和群号这一块。
+# 用法：sh tools/contact.sh on      放上二维码和群号并发布
+#       sh tools/contact.sh off     去掉二维码和群号并发布（线上的二维码图片也一并删掉）
 #       sh tools/contact.sh status  看现在是开还是关
 #       NO_DEPLOY=1 sh tools/contact.sh on|off   只改本地文件不发布（先本地预览用）
-# 块的内容存在 tools/contact-block.html，换微信号、换二维码改那个文件和 img/wechat-qr.webp。
+# 块的内容存在 tools/contact-block.html，换群号、换二维码改那个文件和 img/qq-group-qr.webp。
 set -eu
 cd "$(dirname "$0")/.."
 
@@ -14,7 +14,7 @@ is_on() { grep -q 'class="buy-contact"' index.html; }
 
 case "${1:-}" in
   status)
-    if is_on; then echo "现在：开（页面上有二维码和微信号）"; else echo "现在：关（页面上没有二维码和微信号）"; fi
+    if is_on; then echo "现在：开（页面上有二维码和群号）"; else echo "现在：关（页面上没有二维码和群号）"; fi
     exit 0 ;;
   on)
     if is_on; then echo "已经是开的，不用改"; else
@@ -26,7 +26,7 @@ end = "      <!-- contact:end -->"
 assert text.count(end) == 1, "index.html 里找不到 contact:end 标记"
 page.write_text(text.replace(end, block + end))
 PY
-      echo "已放上二维码和微信号"
+      echo "已放上二维码和群号"
     fi ;;
   off)
     if ! is_on; then echo "已经是关的，不用改"; else
@@ -38,7 +38,7 @@ new, count = re.subn(r"(<!-- contact:start[^\n]*-->\n).*?(      <!-- contact:end
 assert count == 1, "index.html 里找不到 contact 标记"
 page.write_text(new)
 PY
-      echo "已去掉二维码和微信号"
+      echo "已去掉二维码和群号"
     fi ;;
   *)
     sed -n '2,7p' "$0"; exit 1 ;;
@@ -49,6 +49,6 @@ python3 tools/build_pages.py >/dev/null
 [ "${NO_DEPLOY:-}" = 1 ] && { echo "没有发布（NO_DEPLOY=1）"; exit 0; }
 if ! git diff --quiet -- index.html index.md app/guide.json; then
   git add index.html index.md app/guide.json
-  git commit -q -m "chore: 购买卡作者微信改为${1}"
+  git commit -q -m "chore: 购买卡QQ 群改为${1}"
 fi
 sh deploy/deploy.sh

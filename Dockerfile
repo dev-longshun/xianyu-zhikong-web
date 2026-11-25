@@ -17,6 +17,6 @@ COPY app ./app
 COPY img ./img
 COPY fonts ./fonts
 ARG REVISION=dev
-# 微信开关关着时（tools/contact.sh off）不带二维码图片；version.txt 供发布脚本确认新版本已上线
-RUN if ! grep -q 'wechat-qr.webp' index.html; then rm -f img/wechat-qr.webp; fi \
+# 联系方式开关关着时（tools/contact.sh off）不带二维码图片；version.txt 供发布脚本确认新版本已上线
+RUN if ! grep -q 'qq-group-qr.webp' index.html; then rm -f img/qq-group-qr.webp; fi; rm -f img/wechat-qr.webp \
  && echo "${REVISION}" > version.txt

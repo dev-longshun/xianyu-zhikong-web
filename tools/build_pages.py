@@ -71,12 +71,12 @@ def nav(active):
 <div class="nav-links">''' + ''.join(
         f'<a href="{url}"' + (' aria-current="page"' if active == url else '') + f'>{label}</a>'
         for url, label in links
-    ) + '</div><a class="btn btn-sm" href="/#buy">加微信购买</a></div></nav>'
+    ) + '</div><a class="btn btn-sm" href="/#buy">加 QQ 群购买</a></div></nav>'
 
 
 def footer():
     return '''<footer class="foot"><div class="wrap foot-in">
-<div class="site-footer-links"><a href="/">产品介绍</a><a href="/pricing/">价格</a><a href="/tutorials/">使用教程</a><a href="/changelog/">更新日志</a><a href="/download/">下载客户端</a><a href="/#buy">联系作者</a></div>
+<div class="site-footer-links"><a href="/">产品介绍</a><a href="/pricing/">价格</a><a href="/tutorials/">使用教程</a><a href="/changelog/">更新日志</a><a href="/download/">下载客户端</a><a href="/#buy">联系群主</a></div>
 <p><b>闲鱼智控</b>　闲鱼卖家的电脑客户端</p><p class="small">© 2026 闲鱼智控　·　本软件为第三方卖家工具，与闲鱼官方无关</p>
 <p class="foot-badge"><a href="https://xinquji.com" target="_blank" rel="noopener noreferrer"><img src="https://xinquji.com/badge" alt="Featured on 新趣集" style="width:200px;height:54px;" width="200" height="54" loading="lazy"></a></p></div></footer>'''
 
@@ -238,7 +238,7 @@ def article_card(item):
 
 def article_page(item):
     article = figures((ROOT / 'content/articles' / f'{item["slug"]}.html').read_text())
-    article += '<div class="help-strip"><p>想直接试试？下载闲鱼智控，联系作者可以先领 7 天免费试用。</p><a href="/download/">下载客户端 →</a></div>'
+    article += '<div class="help-strip"><p>想直接试试？下载闲鱼智控，进 QQ 群私聊客服可以先领免费试用。</p><a href="/download/">下载客户端 →</a></div>'
     meta = f'<p class="page-meta"><span>卖家经验</span><span>适用版本 {esc(item["version"])}</span><span>更新于 {esc(item["updated"])}</span></p>'
     body = head(item['title'], item['desc'], 'Seller Notes', meta, True) + article_body(article, item['toc'])
     return page(f'/tutorials/{item["slug"]}/', item['title'], item['desc'], body, '/tutorials/', True,
@@ -257,7 +257,7 @@ def build():
 ''' + ('<section class="content-section" aria-labelledby="seller-notes"><div class="section-heading"><h2 id="seller-notes">闲鱼卖家经验</h2><p>虚拟商品怎么发、话术怎么写、工具怎么挑</p></div><div class="guide-grid">' + ''.join(map(article_card, ARTICLES)) + '</div></section>' if ARTICLES else '') + '''
 <section class="content-section" aria-labelledby="feature-guides"><div class="section-heading"><h2 id="feature-guides">跟着视频配置功能</h2><p>看操作过程，也看完成后的实际效果</p></div>
 ''' + ''.join(map(video_card, VIDEOS)) + '''</section>
-<div class="help-strip"><p>安装或设置时遇到问题？可以联系作者说明具体情况。</p><a href="/#buy">联系作者 →</a></div></div>'''
+<div class="help-strip"><p>安装或设置时遇到问题？可以进 QQ 群私聊客服说明具体情况。</p><a href="/#buy">联系群主 →</a></div></div>'''
     pages.append(page('/tutorials/', title, desc, body, '/tutorials/', seo_title='闲鱼自动发货、自动回复设置教程', section='安装与入门'))
 
     title = 'Windows 安装与激活'
@@ -272,7 +272,7 @@ def build():
     article = '''<div class="note"><p>系统要求：Apple 芯片（M 系列），macOS 11 及以上。暂不支持 Intel Mac，也不能安装在 iPhone 或 iPad 上。</p></div>
 <h2 id="download">一、下载 Mac 安装包</h2><p>打开<a href="/download/">下载客户端</a>页面，选择「下载 Mac 版」，等待 DMG 文件下载完成。</p>
 <h2 id="install">二、拖入应用程序</h2><ol><li>双击下载的 DMG 文件，打开安装窗口。</li><li>将「闲鱼智控」拖到「应用程序」文件夹。</li><li>在访达的「应用程序」中打开闲鱼智控。首次询问是否打开从互联网下载的 App 时，确认打开。</li></ol>
-<h2 id="activate">三、完成激活</h2><p>可以先打开查看界面。需要登录闲鱼店铺时，点击客户端的「输入激活码」，输入自己的激活码并按提示完成激活。</p><p>输入时核对激活码是否完整，避免多余空格。尚未购买激活码，可<a href="/#buy">联系作者</a>。一份授权可以激活两台电脑。</p>
+<h2 id="activate">三、完成激活</h2><p>可以先打开查看界面。需要登录闲鱼店铺时，点击客户端的「输入激活码」，输入自己的激活码并按提示完成激活。</p><p>输入时核对激活码是否完整，避免多余空格。尚未购买激活码，可<a href="/#buy">进 QQ 群私聊群主</a>。一份授权可以激活两台电脑。</p>
 <h2 id="running">四、保持客户端运行</h2><p>闲鱼智控在电脑上运行。添加店铺后，需要电脑保持开机联网、软件保持运行，自动回复和自动发货等任务才会工作。需要长时间运行时，可在客户端设置里开启「挂机不休眠」。</p>
 <p>安装完成后，可继续看<a href="/tutorials/auto-delivery/">自动发货教程</a>和<a href="/tutorials/keyword-reply/">关键词自动回复教程</a>，跟着视频配置功能。</p>'''
     body = head(title, desc, 'Installation / Mac', breadcrumb=True) + article_body(article, [('download','下载安装包'),('install','拖入应用程序'),('activate','完成激活'),('running','保持客户端运行')])
@@ -293,7 +293,7 @@ def build():
         + f'</div><p class="plan-fit">{fit}</p><p class="plan-price"><b>{price}</b> 元 / 月</p>'
         + f'<p class="plan-year">按年付 <b>{year}</b> 元 / 年<span>约 8 折</span></p><ul>'
         + ''.join(f'<li>{esc(item)}</li>' for item in items)
-        + '</ul><a class="btn" href="/#buy">加微信购买</a></section>'
+        + '</ul><a class="btn" href="/#buy">加 QQ 群购买</a></section>'
         for n, (name, price, year, fit, badge, items) in enumerate(plans))
     billing_html = ''.join(
         f'<section class="billing-card{" billing-year" if n else ""}"><h3>{name}</h3><p class="billing-fit">{fit}</p><ul>'
@@ -323,11 +323,11 @@ def build():
     faqs = [
         ('两个版本有什么区别？', '功能完全一样，区别只在每台电脑能登录几个闲鱼账号：基础版 1 个，高级版不限。只有一个店铺选基础版就够了。'),
         ('基础版怎么换账号？', '点顶部账号旁的 × 退出当前账号，再扫码登录新账号。退出后聊天记录、订单和设置都留在本机，以后重新登录同一个账号即可恢复。'),
-        ('买了基础版，以后能升级吗？', '能。联系作者把激活码升级为高级版，不用重新激活。在客户端「关于与更新」的授权信息里点「重新检查」立即生效，不点也会在 10 分钟内生效。'),
+        ('买了基础版，以后能升级吗？', '能。私聊群主把激活码升级为高级版，不用重新激活。在客户端「关于与更新」的授权信息里点「重新检查」立即生效，不点也会在 10 分钟内生效。'),
         ('按月付和按年付有什么不一样？', '软件功能一样。按年付一次付 12 个月，约 8 折：基础版 178 元一年，高级版 278 元一年。按年付还可以和作者商量定制功能，你店里需要什么具体功能，作者单独给你做，提的建议和遇到的问题也优先处理；按月付提的建议作者也会看，能做的会排进更新。'),
         ('以前买的激活码算哪个版本？', '此前购买的激活码都按高级版使用，账号数量不限，更新客户端后也不变。'),
         ('基础版激活码对客户端版本有要求吗？', '需要 1.4.0 及以上版本。官网下载的就是最新版；装着旧版本的，先在「关于与更新」里检查更新。'),
-        ('没买能先下载看看吗？', '能。下载安装后不激活也能打开，看看界面和功能；想登录店铺实际用一用，联系作者可以领 7 天免费试用。正式使用要输入激活码。'),
+        ('没买能先下载看看吗？', '能。下载安装后不激活也能打开，看看界面和功能；想登录店铺实际用一用，进 QQ 群私聊客服可以领免费试用。正式使用要输入激活码。'),
     ]
     faq_html = ''.join(f'<details><summary>{q}</summary><p>{a}</p></details>' for q, a in faqs)
     body = head(title, desc, 'Pricing') + f'''<div class="wrap">
@@ -335,7 +335,7 @@ def build():
 <section class="content-section" aria-labelledby="billing"><div class="section-heading"><h2 id="billing">按月付还是按年付</h2><p>两种付法软件功能一样，区别在价格和能不能定制</p></div><div class="billing">{billing_html}</div></section>
 <section class="content-section" aria-labelledby="compare"><div class="section-heading"><h2 id="compare">两个版本对比</h2><p>两个版本都最多激活两台电脑</p></div>{table}</section>
 <section class="content-section" aria-labelledby="pricing-faq"><div class="section-heading"><h2 id="pricing-faq">关于版本和购买</h2></div><div class="faq">{faq_html}</div></section>
-<div class="help-strip"><p>拿不准选哪个？加作者微信说说你有几个店铺。</p><a href="/#buy">加微信购买 →</a></div></div>'''
+<div class="help-strip"><p>拿不准选哪个？进 QQ 群私聊群主，说说你有几个店铺。</p><a href="/#buy">加 QQ 群购买 →</a></div></div>'''
     pages.append(page('/pricing/', title, desc, body, '/pricing/', seo_title='闲鱼智控价格：基础版 19 元 / 月，高级版 29 元 / 月，按年付约 8 折', section='产品',
                       extra=[seo.software(ORIGIN, PLANS, LATEST, FEATURES)]))
 
@@ -355,12 +355,12 @@ def build():
 <section class="platform"><svg class="platform-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="11" rx="1.5"/><path d="M2 19h20l-2-4H4z"/></svg><h2>Mac 版</h2><p>Apple M 系列芯片<br>macOS 11 及以上 · DMG 安装包<br>暂不支持 Intel 芯片 Mac</p><a class="btn" href="https://dl.longjinapi.com/xianyu-zhikong-mac-arm64.dmg">下载 Mac 版 ↓</a><div class="platform-links"><a href="/tutorials/mac/">安装与首次使用 →</a></div></section>
 <section class="platform"><svg class="platform-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M9 20h6M12 16v4"/></svg><h2>Windows 版</h2><p>64 位 Windows 10 / 11<br>EXE 安装包<br>按安装向导完成安装</p><a class="btn" href="https://dl.longjinapi.com/xianyu-zhikong-windows-x64.exe">下载 Windows 版 ↓</a><div class="platform-links"><a href="/tutorials/windows/">图文安装与激活教程 →</a></div></section></div>
 <div class="note"><p>手机不能安装此客户端。请用电脑打开本页下载；如果你正在手机上浏览，可以先查看教程，再把本页链接发到电脑。</p></div>
-<div class="download-info"><section><h2>第一次使用，三步开始</h2><ol><li>下载对应系统的安装包，按<a href="/tutorials/">安装教程</a>完成安装。</li><li>先打开查看界面；登录闲鱼店铺前，输入激活码完成激活。想先试用，联系作者可以领 7 天免费试用。<a href="/pricing/">看两个版本的价格 →</a></li><li>电脑保持开机联网、客户端保持运行，自动化任务才能持续工作。</li></ol></section>
+<div class="download-info"><section><h2>第一次使用，三步开始</h2><ol><li>下载对应系统的安装包，按<a href="/tutorials/">安装教程</a>完成安装。</li><li>先打开查看界面；登录闲鱼店铺前，输入激活码完成激活。想先试用，进 QQ 群私聊客服可以领免费试用。<a href="/pricing/">看两个版本的价格 →</a></li><li>电脑保持开机联网、客户端保持运行，自动化任务才能持续工作。</li></ol></section>
 <section><h2>已经安装？在客户端更新</h2><p>在客户端「关于与更新」里检查更新，按提示下载并重启安装。更新会暂时中断自动化任务，请选择合适的时间。</p><p><a href="/changelog/">查看本次更新了什么 →</a></p></section></div>
 <section class="content-section" style="margin-top:48px"><h2>下载与安装常见问题</h2><div class="faq">
-<details><summary>Windows 下载或安装时出现提示怎么办？</summary><p>当前 Windows 安装包没有微软代码签名。请确认下载来自本站，并结合具体提示操作。浏览器的保留步骤见<a href="/tutorials/windows/">图文教程</a>；如果系统显示「Windows 已保护你的电脑」，确认来源后可选择「更多信息」→「仍要运行」。遇到无法确认的提示，可联系作者。</p></details>
+<details><summary>Windows 下载或安装时出现提示怎么办？</summary><p>当前 Windows 安装包没有微软代码签名。请确认下载来自本站，并结合具体提示操作。浏览器的保留步骤见<a href="/tutorials/windows/">图文教程</a>；如果系统显示「Windows 已保护你的电脑」，确认来源后可选择「更多信息」→「仍要运行」。遇到无法确认的提示，可进 QQ 群私聊客服。</p></details>
 <details><summary>Mac 第一次打开怎么安装？</summary><p>打开 DMG，将「闲鱼智控」拖入「应用程序」，再从应用程序中打开。首次询问是否打开从互联网下载的 App 时确认打开。详见<a href="/tutorials/mac/">Mac 安装教程</a>。</p></details>
-<details><summary>没买激活码，能先下载吗？</summary><p>能。安装后可以先打开查看界面。想登录店铺实际用一用，联系作者可以领 7 天免费试用；正式使用再购买激活码。一份授权可以激活两台电脑。</p></details>
+<details><summary>没买激活码，能先下载吗？</summary><p>能。安装后可以先打开查看界面。想登录店铺实际用一用，进 QQ 群私聊客服可以领免费试用；正式使用再购买激活码。一份授权可以激活两台电脑。</p></details>
 <details><summary>官网下载慢，有其他下载入口吗？</summary><p>可到<a href="https://github.com/dev-longshun/xianyu-zhikong/releases" target="_blank" rel="noopener">GitHub Releases</a>查看镜像和校验文件。GitHub 镜像已同步当前版本，与官网下载使用同一批安装包，附有 SHA-256 校验文件。</p></details>
 </div></section><div class="help-strip"><p>准备好开始配置功能了？</p><a href="/tutorials/">前往使用教程 →</a></div></div>'''
     pages.append(page('/download/',title,desc,body,'/download/', seo_title='下载闲鱼智控电脑客户端（Mac / Windows）', modified=LATEST['date'], section='产品'))
@@ -385,7 +385,7 @@ def app_guide():
     - 功能清单（分组、一句话说明、在软件里的位置、设置步骤）的原稿是 content/app-guide.json，只在这里维护；
       target.page / target.section 是客户端里的页面标识，客户端不认识的会自动不显示「去设置」按钮。
     - 教程列表自动带出本站全部图文、视频教程，新教程上线后客户端里跟着出现。
-    - 联系方式跟首页购买卡的微信开关（tools/contact.sh）走：关着时不带微信号和二维码，客户端里也不显示。
+    - 联系方式暂不下发（官网已改 QQ 群，客户端弹框还只认微信），客户端里显示「到官网查看联系方式」。
     字段含义改动要同步软件本体 desktop/src/lib/siteGuide.ts；只加字段不用升 schema。
     """
     source = json.loads((ROOT / 'content/app-guide.json').read_text())
@@ -406,15 +406,10 @@ def app_guide():
             if slug and slug not in known:
                 raise SystemExit(f"content/app-guide.json：功能「{feature['title']}」指向的教程 {slug} 不存在")
 
+    # 2026-11-25 起官网联系方式改成 QQ 群。客户端「联系作者」弹框的文案写死了「微信号」「用微信扫一扫」，
+    # 直接塞群号会显示成微信号，所以先不下发联系方式：客户端显示「到官网查看联系方式」并打开官网购买卡。
+    # 软件本体改成支持 QQ 群后，再在这里按 tools/contact-block.html 下发群号和二维码。
     contact = {'visible': False, 'buyUrl': ORIGIN + '/#buy'}
-    qr = ROOT / 'img/wechat-qr.webp'
-    if 'class="buy-contact"' in (ROOT / 'index.html').read_text() and qr.exists():
-        wechat = re.search(r'微信号\s*<b>([^<]+)</b>', (ROOT / 'tools/contact-block.html').read_text())
-        if not wechat:
-            raise SystemExit('tools/contact-block.html 里没找到微信号')
-        # 图片地址带内容指纹：换了二维码，客户端马上拿到新图，不受一天缓存影响
-        contact.update(visible=True, wechatId=wechat.group(1).strip(),
-                       qrUrl=f"{ORIGIN}/img/wechat-qr.webp?v={hashlib.sha256(qr.read_bytes()).hexdigest()[:10]}")
     data = {'schema': 1, 'tutorialsUrl': ORIGIN + '/tutorials/', 'start': source['start'], 'groups': source['groups'],
             'tutorials': tutorials, 'contact': contact}
     target = ROOT / 'app/guide.json'
