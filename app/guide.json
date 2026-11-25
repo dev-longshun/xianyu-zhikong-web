@@ -277,6 +277,13 @@
       "url": "https://xianyu.dongeai.com/tutorials/mac/"
     },
     {
+      "slug": "privacy-mode",
+      "kind": "guide",
+      "title": "闲鱼截图隐私模式：店铺与商品信息一键打码",
+      "desc": "截图前一键打码，自己查看可悬停；店铺代号和独立开关设置。",
+      "url": "https://xianyu.dongeai.com/tutorials/privacy-mode/"
+    },
+    {
       "slug": "banned-words",
       "kind": "guide",
       "title": "闲鱼违禁词不回复：命中后整个会话停，检查后再恢复",
